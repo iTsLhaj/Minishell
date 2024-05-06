@@ -1,6 +1,8 @@
 ## Git !
 <br>
+
 ![handshake](assets/handshake.gif)
+
 <br>
 1. Create the Git Repo (Done!)
 2. Init the repo in your desired dir:
