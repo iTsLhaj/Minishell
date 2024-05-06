@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /home/meow/.quarante-deux/Minishell Select CMakeLists.txt
