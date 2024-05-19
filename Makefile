@@ -3,7 +3,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 LIB		=	lib/libft/libft.a
 INCFILE	=	include/
 
-SRCS	=	src/main.c
+SRCS	=	src/main.c src/builtings/builtings.c src/builtings/exit.c src/builtings/cd.c src/builtings/pwd.c src/builtings/env.c src/builtings/export.c
 
 NAME	=	minishell
 OBJS	=	$(SRCS:.c=.o)
@@ -13,7 +13,7 @@ RM		=	rm -rf
 all: mklib $(NAME)
 
 $(NAME): $(OBJS) $(LIB)
-	$(CC) -I include/ $(CFLAGS) $^ -o $@
+	$(CC) -I include/  $(CFLAGS) $^ -o $@ -lreadline
 
 %.o: %.c
 	$(CC) -I include/ $(CFLAGS) -c $< -o $@
