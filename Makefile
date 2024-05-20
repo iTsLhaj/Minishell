@@ -3,7 +3,8 @@ CFLAGS	=	-Wall -Wextra -Werror
 LIB		=	lib/libft/libft.a
 INCFILE	=	include/
 
-SRCS	=	src/main.c
+SRCS	=	src/main.c	\
+			src/tokenize/tokenize.c
 
 NAME	=	minishell
 OBJS	=	$(SRCS:.c=.o)
