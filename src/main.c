@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/19 17:45:38 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:51:10 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@ int main(int ac , char **av, char **env)
     (void)ac;
     (void)av;
     c_cmd command;
+    char *cmdline;
     
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, signal_handler);
-    command.cmd = readline("minishell$");
-    while(command.cmd != NULL)
+    cmdline = readline("minishell$ ");
+    command.cmd = ft_split(cmdline, ' ');
+    while(cmdline != NULL)
     {
         builting(command, env);
-        free(command.cmd);
-        command.cmd = readline("minishell$");
+        free(cmdline);
+        cmdline= readline("minishell$ ");
+        command.cmd = ft_split(cmdline, ' ');
     }
     return (0);
 }

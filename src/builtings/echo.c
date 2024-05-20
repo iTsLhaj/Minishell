@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 18:15:03 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 12:01:34 by agaougao         ###   ########.fr       */
+/*   Created: 2024/05/20 14:57:23 by agaougao          #+#    #+#             */
+/*   Updated: 2024/05/20 15:01:44 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../include/minishell.h"
+#include "minishell.h"
 
-void mini_env(c_cmd command,char **env)
+void echo(c_cmd *cmd)
 {
-    int i;
-    
-    i = 0;
-    command.env = env;
-    if(ft_strncmp(command.cmd[0] ,"env",3) == 0)
+    if(ft_strncmp(cmd->cmd[0], "echo",4) == 0)
     {
-        while(command.env[i] != NULL)
+        if(cmd->cmd[1] == NULL)
         {
-            printf("%s\n",command.env[i]);
-            i++;
+            printf("\n");
+        }
+        else
+        {
+            printf("%s\n",cmd->cmd[1]);
         }
     }
 }

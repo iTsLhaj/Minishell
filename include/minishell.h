@@ -25,13 +25,15 @@ typedef struct	s_minishell
 
 typedef struct cmd
 {
-	char *cmd;
+	char **cmd;
 	char *oldpwd;
+	char **env;
 } c_cmd;
 
 void builting(c_cmd command , char **env);
 void miniexit(c_cmd command);
 void cd(c_cmd *cmd , char **env);
 void    pwd(c_cmd *cmd);
-void mini_env(char **env);
+void mini_env(c_cmd command,char **env);
+void echo(c_cmd *cmd);
 #endif

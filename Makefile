@@ -3,7 +3,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 LIB		=	lib/libft/libft.a
 INCFILE	=	include/
 
-SRCS	=	src/main.c src/builtings/builtings.c src/builtings/exit.c src/builtings/cd.c src/builtings/pwd.c src/builtings/env.c src/builtings/export.c
+SRCS	=	src/main.c src/builtings/builtings.c src/builtings/exit.c src/builtings/cd.c src/builtings/pwd.c src/builtings/env.c src/builtings/export.c src/builtings/echo.c
 
 NAME	=	minishell
 OBJS	=	$(SRCS:.c=.o)
