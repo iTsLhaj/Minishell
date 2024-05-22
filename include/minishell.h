@@ -30,6 +30,12 @@ typedef struct cmd
 	char **env;
 } c_cmd;
 
+typedef struct env
+{
+	void	*data;
+	struct env *next;
+} t_env;
+
 void builting(c_cmd command , char **env);
 void miniexit(c_cmd command);
 void cd(c_cmd *cmd , char **env);

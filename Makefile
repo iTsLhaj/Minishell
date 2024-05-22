@@ -1,4 +1,4 @@
-CC		=	cc
+CC		=	cc -g
 CFLAGS	=	-Wall -Wextra -Werror
 LIB		=	lib/libft/libft.a
 INCFILE	=	include/

@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:57:23 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/21 11:30:05 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:41:52 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,26 @@
 
 void echo(c_cmd *cmd)
 {
+    int  i;
+
+    i = 1;
     if(ft_strncmp(cmd->cmd[0], "echo",4) == 0)
     {
         if(cmd->cmd[1] == NULL)
-        {
             printf("\n");
-        }
         else if(ft_strncmp(cmd->cmd[1], "-n",2) == 0)
         {
-            if(cmd->cmd[2] == NULL)
+            while(cmd->cmd[i])
             {
-                printf("");
+                if(ft_strncmp(cmd->cmd[i], "-n",2) != 0)
+                    break;
+                else
+                    i++;
             }
+            if(cmd->cmd[i] == NULL)
+                printf("");
             else
-                printf("%s",cmd->cmd[2]);
+                printf("%s",cmd->cmd[i]);
         }
         else
             printf("%s\n",cmd->cmd[1]);
