@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 15:51:10 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:42:01 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int main(int ac , char **av, char **env)
     (void)av;
     c_cmd command;
     char *cmdline;
+
     
+    command.env = env;
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, signal_handler);
     cmdline = readline("minishell$ ");

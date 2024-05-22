@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:57:23 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 15:01:44 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:30:05 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,16 @@ void echo(c_cmd *cmd)
         {
             printf("\n");
         }
-        else
+        else if(ft_strncmp(cmd->cmd[1], "-n",2) == 0)
         {
-            printf("%s\n",cmd->cmd[1]);
+            if(cmd->cmd[2] == NULL)
+            {
+                printf("");
+            }
+            else
+                printf("%s",cmd->cmd[2]);
         }
+        else
+            printf("%s\n",cmd->cmd[1]);
     }
 }
