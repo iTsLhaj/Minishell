@@ -3,28 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 14:45:26 by hmouhib           #+#    #+#             */
-/*   Updated: 2023/11/21 20:47:49 by hmouhib          ###   ########.fr       */
+/*   Created: 2023/11/02 10:23:22 by agaougao          #+#    #+#             */
+/*   Updated: 2024/04/23 18:00:55 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int nb, int fd)
 {
-	long	nb;
+	char	c;
 
-	nb = n;
 	if (fd < 0)
 		return ;
-	if (nb < 0)
+	if (nb == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (nb < 0)
 	{
-		write(fd, "-", 1);
 		nb = -nb;
+		write(fd, "-", 1);
+		ft_putnbr_fd(nb, fd);
 	}
-	if (nb > 9)
+	else if (nb > 9)
+	{
 		ft_putnbr_fd(nb / 10, fd);
-	write(fd, &"0123456789"[nb % 10], 1);
+		ft_putnbr_fd(nb % 10, fd);
+	}
+	else
+	{
+		c = nb + 48;
+		write(fd, &c, 1);
+	}
 }

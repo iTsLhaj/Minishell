@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 11:36:56 by agaougao          #+#    #+#             */
-/*   Updated: 2023/11/03 11:36:56 by agaougao         ###   ########.fr       */
+/*   Created: 2024/05/23 13:22:00 by marvin            #+#    #+#             */
+/*   Updated: 2024/05/23 13:22:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-int	ft_toupper(int c)
+void check_path(c_cmd cmd)
 {
-	if (c >= 'a' && c <= 'z')
-		return (c - 32);
-	return (c);
+    
 }

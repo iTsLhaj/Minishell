@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:04:25 by hmouhib           #+#    #+#             */
-/*   Updated: 2023/11/26 17:53:55 by hmouhib          ###   ########.fr       */
+/*   Created: 2023/11/11 11:32:00 by agaougao          #+#    #+#             */
+/*   Updated: 2024/04/23 17:59:31 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_nsize(int n)
+int	get_nsize(int n)
 {
 	int	size;
 
@@ -32,7 +32,7 @@ static int	get_nsize(int n)
 	return (size - 1);
 }
 
-static void	init_nb(unsigned int *nb, int n, char *buffer)
+void	init_nb(unsigned int *nb, int n, char *buffer)
 {
 	if (n < 0)
 	{

@@ -3,36 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 17:10:29 by hmouhib           #+#    #+#             */
-/*   Updated: 2023/11/26 17:54:41 by hmouhib          ###   ########.fr       */
+/*   Created: 2023/11/01 14:36:06 by agaougao          #+#    #+#             */
+/*   Updated: 2024/04/23 18:00:32 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *s1, const void *s2, size_t n)
 {
-	size_t	i;
-
-	i = 0;
-	if (!dest && !src)
+	if (!n)
+		return (s1);
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
-	if (!n || dest == src)
-		return ((void *)dest);
-	if (dest <= src)
-	{
-		while (i < n)
-		{
-			*(unsigned char *)(dest + i) = *(const unsigned char *)(src + i);
-			i++;
-		}
-	}
+	if (s1 <= s2)
+		ft_memcpy(s1, s2, n);
 	else
 	{
-		while (n--)
-			*(unsigned char *)(dest + n) = *(const unsigned char *)(src + n);
+		while (--n)
+			*(char *)(s1 + n) = *(char *)(s2 + n);
+		*(char *)(s1) = *(char *)(s2);
 	}
-	return (dest);
+	return (s1);
 }

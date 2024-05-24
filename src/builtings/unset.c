@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:39:45 by agaougao          #+#    #+#             */
-/*   Updated: 2024/04/23 18:01:29 by agaougao         ###   ########.fr       */
+/*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
+/*   Updated: 2024/05/20 14:35:27 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+
+void    unset(char **env, c_cmd *cmd)
 {
-	unsigned int	i;
-	size_t			len;
-	char			*string;
-
-	len = ft_strlen(s) + 1;
-	string = (char *)malloc(len);
-	if (!string)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		string[i] = f(i, s[i]);
-		i++;
-	}
-	string[i] = 0;
-	return (string);
+    char *env;
+    
+    if(ft_strncmp(cmd->cmd[0], "unset",5) == 0)
+    {
+        env = getenv(cmd->cmd[1]);
+        if(env != NULL)
+        {
+            
+        }
+        
+    }
 }
