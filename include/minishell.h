@@ -19,22 +19,21 @@
  */
 typedef struct	s_minishell
 {
-	void	*data;
-	int	quit;
+	t_list *env;
+
 }	t_minishell;
 
 typedef struct cmd
 {
 	char **cmd;
-	char *oldpwd;
-	char **env;
 } c_cmd;
 
-typedef struct env
+typedef struct s_env
 {
-	void	*data;
-	struct env *next;
-} t_env;
+	char	*key;
+	char	*val;
+}	t_env;
+
 
 void builting(c_cmd command , char **env);
 void miniexit(c_cmd command);
@@ -42,4 +41,6 @@ void cd(c_cmd *cmd , char **env);
 void    pwd(c_cmd *cmd);
 void mini_env(c_cmd command,char **env);
 void echo(c_cmd *cmd);
+void check_path(c_cmd cmd);
+t_list *env_list(char **env);
 #endif

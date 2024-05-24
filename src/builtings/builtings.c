@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:06 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 15:03:45 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:40:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void builting(c_cmd command , char **env)
     pwd(&command);
     miniexit(command);
     cd(&command , env);
-    mini_env(command,env);
+   // mini_env(command,env);
     echo(&command);
 }

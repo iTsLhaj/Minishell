@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:57:23 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/22 15:41:52 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:15:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void echo(c_cmd *cmd)
                     i++;
             }
             if(cmd->cmd[i] == NULL)
-                printf("");
+                printf(" ");
             else
                 printf("%s",cmd->cmd[i]);
         }

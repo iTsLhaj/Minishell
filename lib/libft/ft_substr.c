@@ -3,59 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 16:30:55 by hmouhib           #+#    #+#             */
-/*   Updated: 2023/11/25 14:55:33 by hmouhib          ###   ########.fr       */
+/*   Created: 2023/11/06 15:37:56 by agaougao          #+#    #+#             */
+/*   Updated: 2023/11/26 17:34:56 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_allocation_size(char const *s,
-			unsigned int start, size_t len)
-{
-	size_t	size;
-	size_t	i;
-
-	i = 0;
-	size = 0;
-	if (start > ft_strlen(s))
-		return (1);
-	while (s[i])
-	{
-		if (i >= start && size < len)
-			size++;
-		i++;
-	}
-	if (size == len)
-		return (len + 1);
-	else
-		return (size + 1);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*ss;
 	size_t	i;
 	size_t	j;
+	char	*str;
 
+	if (!s)
+		return (0);
+	str = (char *)malloc((len + 1));
 	i = 0;
 	j = 0;
-	if (!s)
-		return (NULL);
-	ss = (char *)malloc(get_allocation_size(s, start, len));
-	if (!ss)
+	if (!str)
 		return (NULL);
 	while (s[i])
 	{
 		if (i >= start && j < len)
 		{
-			ss[j] = s[i];
+			str[j] = s[i];
 			j++;
 		}
 		i++;
 	}
-	ss[j] = 0;
-	return (ss);
+	str[j] = 0;
+	return (str);
 }
