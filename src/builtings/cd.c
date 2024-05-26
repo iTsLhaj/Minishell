@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:17:03 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/21 11:18:13 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/25 13:40:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void cd(c_cmd *cmd , char **env)
+void cd(c_cmd *cmd)
 {
-    (void)env;
     char *path;
 
     int status;

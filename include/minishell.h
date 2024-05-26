@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <fcntl.h>
+#include<readline/history.h>
 
 /**
  * @brief struct dyaL minishell
@@ -35,12 +36,13 @@ typedef struct s_env
 }	t_env;
 
 
-void builting(c_cmd command , char **env);
+void builting(c_cmd command ,t_minishell *shell);
 void miniexit(c_cmd command);
-void cd(c_cmd *cmd , char **env);
+void cd(c_cmd *cmd);
 void    pwd(c_cmd *cmd);
-void mini_env(c_cmd command,char **env);
+void mini_env(t_list *env);
 void echo(c_cmd *cmd);
 void check_path(c_cmd cmd);
 t_list *env_list(char **env);
+void export(c_cmd command,t_list *list);
 #endif

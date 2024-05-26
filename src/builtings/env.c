@@ -6,25 +6,21 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 18:15:03 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/24 16:41:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/25 13:36:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
-
-// void mini_env(c_cmd command,char **env)
-// {
-//     int i;
-//     (void)env;
-    
-//     i = 0;
-    
-//     if(ft_strncmp(command.cmd[0] ,"env",3) == 0)
-//     {
-//         while(command.env[i] != NULL)
-//         {
-//             printf("%s\n",command.env[i]);
-//             i++;
-//         }
-//     }
-// }
+void mini_env(t_list *env)
+{
+    while(env)
+    {
+        if(((t_env *)env->content)->val)
+        {
+            printf("%s",((t_env *)env->content)->key);
+            printf("=%s", ((t_env *)env->content)->val);
+            printf("\n");
+        }
+        env=env->next; 
+    }
+}
