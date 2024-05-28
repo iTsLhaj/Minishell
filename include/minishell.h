@@ -46,4 +46,5 @@ void check_path(c_cmd cmd);
 t_list *env_list(char **env);
 void export(c_cmd command,t_list *list);
 void split_env(t_env *env_node, char *str);
+void    unset(c_cmd cmd,t_minishell *shell);
 #endif

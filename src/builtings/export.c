@@ -26,53 +26,82 @@ void declare(c_cmd command,t_list *env)
     }
 
 }
+
+int check_key(t_list *list, char *key, char *val)
+{
+    t_list *tmp;
+
+    tmp = list;
+    while(tmp)
+    {
+        if(ft_strncmp(((t_env *)tmp->content)->key, key,ft_strlen(key)) == 0)
+        {
+            return 1;
+        }
+        tmp = tmp->next;
+    }
+    return 0;
+}
+
+void add_val(t_list *list, char *key, char *val)
+{
+    t_list *tmp;
+    char *env_var;
+    char *value;
+
+    tmp = list;
+    while(tmp)
+    {
+        env_var = ((t_env *)tmp->content)->key;
+        if(ft_strnstr(env_var, key, ft_strlen(key)) && ft_strlen(env_var) == ft_strlen(key))
+        {
+            value = ((t_env *)tmp->content)->val;
+            ((t_env *)tmp->content)->val =  ft_strjoin(value,val);
+        }
+        tmp = tmp->next;
+    }
+}
+
+void add_back_to_env(t_list *list, char *key, char *val)
+{
+    t_env *env;
+    t_list *new;
+    env = (t_env *)malloc(sizeof(t_env));
+    env->key = ft_strdup(key);
+    env->val = ft_strdup(val);
+    new = ft_lstnew(env);
+    ft_lstadd_back(&list,new);
+}
+
 void check_export(c_cmd command,t_list *list)
 {
     t_list *new;
-    t_env *env;
+    char *env[2];
+    t_env *envp;
     int len;
     char *tst;
-    char *cmp;
-    char *tmp;
-    char *add;
 
     len = ft_strlen(command.cmd[1]);
     tst = ft_strnstr(command.cmd[1],"+=", len);
     if(tst)
     {
-        cmp = ft_substr(command.cmd[1],0,len - strlen(tst));
-        while(env->key)
-        {
-            if(ft_strncmp(env->key, cmp , strlen(cmp)) == 0)
-            {
-                printf("dd\n");
-                env->val=ft_strjoin(env->val,tst);
-                while(list)
-                {
-                    if(ft_strncmp(list->content, cmp , strlen(cmp)) == 0)
-                    {
-                        tmp = ft_strnstr(list->content, "=", ft_strlen(list->content));
-                        add = ft_strjoin(tmp, tst);                            
-                        new = ft_lstnew(add);
-                        ft_lstadd_back(&list,new);
-                    }
-                    list = list->next;
-                }
-            }                
-        }
-
+        env[0] = ft_substr(command.cmd[1],0, len - ft_strlen(tst));
+        env[1] = ft_strdup(tst + 2);
+        if(check_key(list, env[0], env[1]) == 1)
+            add_val(list, env[0], env[1]);
+        else
+            add_back_to_env(list, env[0], env[1]);
     }
     else
     {
-        env = malloc(sizeof(t_env));
-        split_env(env,command.cmd[1]);
-        new = ft_lstnew(env);
+        envp = (t_env *)malloc(sizeof(t_env));
+        split_env(envp,command.cmd[1]);
+        new = ft_lstnew(envp);
         ft_lstadd_back(&list,new);
     }
 }
 void export(c_cmd command,t_list *list)
 {
-
     if(ft_strncmp(command.cmd[0] , "export", 5) == 0)
     {
         if(command.cmd[1] == NULL)

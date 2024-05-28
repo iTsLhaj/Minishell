@@ -6,24 +6,71 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 14:35:27 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:00:08 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-void    unset(char **env, c_cmd *cmd)
+void	del(void *ptr)
 {
-    char *env;
+	free(ptr);
+	ptr = NULL;
+}
+void del_the_env(t_minishell *shell, t_list *lst)
+{
+    t_list *tmp;
     
-    if(ft_strncmp(cmd->cmd[0], "unset",5) == 0)
+    tmp = shell->env;
+    while(tmp != lst)
+        tmp = tmp->next;
+    if(tmp->next)
+        tmp->next=lst->next;
+    else
+        tmp->next = NULL;
+    free(((t_env *)(lst->content))->key);
+    free(((t_env *)(lst->content))->val);
+    ft_lstdelone(lst,del);
+    
+}
+
+
+t_list *get_the_env(char *key, t_list *list)
+{
+    t_list *tmp;
+
+    tmp = list;
+    while(tmp)
     {
-        env = getenv(cmd->cmd[1]);
-        if(env != NULL)
+        if(ft_strncmp(((t_env *)(tmp->content))->key,key,ft_strlen(key)) == 0)
+            return tmp;
+        tmp = tmp->next;
+    }
+    return NULL;
+}
+int o_check_key(c_cmd cmd,t_list *list)
+{
+    char *key;
+
+    while(list)
+    {
+        key = ((t_env *)(list->content))->key;
+        if(ft_strncmp(key,cmd.cmd[1],ft_strlen(key) ) == 0)
+            return 1;
+        list = list->next;
+    }
+    return 0;
+}
+void    unset(c_cmd cmd,t_minishell *shell)
+{
+    t_list *lst;
+    if(ft_strncmp(cmd.cmd[0], "unset",5) == 0)
+    {
+        if(o_check_key(cmd,shell->env) == 1)
         {
-            
+            lst = get_the_env(cmd.cmd[1], shell->env);
+            del_the_env(shell, lst);    
         }
-        
+             
     }
 }
