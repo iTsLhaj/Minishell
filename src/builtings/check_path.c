@@ -12,7 +12,9 @@
 
 #include "../include/minishell.h"
 
-// void check_path(c_cmd cmd)
-// {
-//     t_list 
-// }
+void check_path(c_cmd cmd , t_minishell *shell)
+{
+    char *path;
+    int i;
+    
+}

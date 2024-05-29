@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/28 18:00:08 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:50:55 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void del_the_env(t_minishell *shell, t_list *lst)
     t_list *tmp;
     
     tmp = shell->env;
-    while(tmp != lst)
+    while(tmp->next != lst)
         tmp = tmp->next;
     if(tmp->next)
         tmp->next=lst->next;
@@ -33,7 +33,6 @@ void del_the_env(t_minishell *shell, t_list *lst)
     ft_lstdelone(lst,del);
     
 }
-
 
 t_list *get_the_env(char *key, t_list *list)
 {
@@ -70,7 +69,6 @@ void    unset(c_cmd cmd,t_minishell *shell)
         {
             lst = get_the_env(cmd.cmd[1], shell->env);
             del_the_env(shell, lst);    
-        }
-             
+        }        
     }
 }
