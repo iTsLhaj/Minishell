@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/30 14:27:55 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:54:29 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,26 @@ void signal_handler(int sig)
     }
 }
 
+
+int check_builtin(char *str)
+{
+    if (ft_strncmp(str, "echo",4) == 0)
+        return (1);
+    else if (ft_strncmp(str, "cd",2) == 0)
+        return (2);
+    else if (ft_strncmp(str, "pwd",3) == 0)
+        return (3);
+    else if (ft_strncmp(str, "export",5) == 0)
+        return (4);
+    else if (ft_strncmp(str, "unset",5) == 0)
+        return (5);
+    else if (ft_strncmp(str, "env",3) == 0)
+        return (6);
+    else if (ft_strncmp(str, "exit",4) == 0)
+        return (7);
+    else
+        return (0);
+}
 int main(int ac , char **av, char **env)
 {
     (void)ac;
@@ -30,6 +50,7 @@ int main(int ac , char **av, char **env)
     c_cmd command;
     t_minishell *str;
     char *cmdline;
+    int s;
 
     str = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
@@ -41,8 +62,11 @@ int main(int ac , char **av, char **env)
         if(cmdline == NULL)
             break;
         command.cmd = ft_split(cmdline, ' ');
-        check_path(command,str);
-        builting(command, str);
+        s = check_builtin(command.cmd[0]);
+        if(s != 0)
+            builting(command, str);
+        else
+            check_path(command,str);
         add_history(cmdline);
         free(cmdline);
     }
