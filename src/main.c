@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/30 16:54:29 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:47:52 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,36 @@ int check_builtin(char *str)
     else
         return (0);
 }
+void check(c_cmd cmd, t_minishell *shell)
+{
+    int s;
+    t_list *tmp;
+    char *ptr;
+    char *str;
+    char **split;
+    char *path;
+
+    tmp = shell->env;
+    s = check_builtin(cmd.cmd[0]);
+    if(s != 0)
+        builting(cmd, shell);
+    else
+    {
+        ptr = check_exist_path(tmp);
+        if(ptr == NULL)
+            printf(" %s: No such file or directory\n", cmd.cmd[0]);
+        else
+        {
+            split = ft_split(ptr , ':');
+            path = check_valid_path(cmd , split);
+            if(path != NULL)
+                check_path(path, cmd,shell);
+            else
+                printf("%s: command not found\n", cmd.cmd[0]); 
+        }
+    }
+}
+
 int main(int ac , char **av, char **env)
 {
     (void)ac;
@@ -50,7 +80,7 @@ int main(int ac , char **av, char **env)
     c_cmd command;
     t_minishell *str;
     char *cmdline;
-    int s;
+    int p;
 
     str = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
@@ -62,11 +92,12 @@ int main(int ac , char **av, char **env)
         if(cmdline == NULL)
             break;
         command.cmd = ft_split(cmdline, ' ');
-        s = check_builtin(command.cmd[0]);
-        if(s != 0)
-            builting(command, str);
+        p = check_pipe(command.cmd);
+        if(p == 1)
+            pipex(command,str);
         else
-            check_path(command,str);
+            check(command,str);
+        // printf("dd\n");
         add_history(cmdline);
         free(cmdline);
     }

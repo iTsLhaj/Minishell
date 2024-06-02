@@ -17,6 +17,7 @@ char *check_valid_path(c_cmd cmd , char **str)
     char *path;
     int i;
     char *ptr;
+
     i = 0;
     while(str[i])
     {
@@ -31,6 +32,23 @@ char *check_valid_path(c_cmd cmd , char **str)
     return NULL;
 }
 
+char  *check_exist_path(t_list *tmp)
+{
+    char *value;
+    char *key;
+    
+    while (tmp)
+    {
+        key = ((t_env *)tmp->content)->key;
+        if(ft_strncmp(key , "PATH", 4) == 0)
+        {
+            value = ((t_env *)tmp->content)->val;
+            return (value);
+        }
+        tmp = tmp->next;
+    }
+    return (NULL);
+}
 char **turn_env_tab(t_minishell *shell)
 {
     t_list *tmp;
@@ -49,37 +67,16 @@ char **turn_env_tab(t_minishell *shell)
     return env;
 }
 
-void check_path(c_cmd cmd , t_minishell *shell)
+void check_path(char *path,c_cmd cmd , t_minishell *shell)
 {
-    t_list *tmp;
-    char *key;
-    char *value;
-    char **split;
-    char *path;
     char **env;
-    tmp = shell->env;
     pid_t pid;
-    while (tmp)
-    {
-        key = ((t_env *)tmp->content)->key;
-        if(ft_strncmp(key , "PATH", 4) == 0)
-        {
-            value = ((t_env *)tmp->content)->val;
-            break;
-        }
-        tmp = tmp->next;
-    }
-    split = ft_split(value , ':');
-    path = check_valid_path(cmd , split);
     env = turn_env_tab(shell);
     if(access(path, X_OK) == 0)
     {
         pid = fork();
         if(pid == 0)
-        {
             execve(path, cmd.cmd,env);
-            exit(0);
-        }
         waitpid(pid, NULL, 0);
     }
 }

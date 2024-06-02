@@ -27,6 +27,8 @@ typedef struct	s_minishell
 typedef struct cmd
 {
 	char **cmd;
+	int infile;
+	int outfile;
 } c_cmd;
 
 typedef struct s_env
@@ -42,9 +44,14 @@ void cd(c_cmd *cmd);
 void    pwd(c_cmd *cmd);
 void mini_env(t_list *env);
 void echo(c_cmd *cmd);
-void check_path(c_cmd cmd , t_minishell *shell);
+void check_path(char *path,c_cmd cmd , t_minishell *shell);
 t_list *env_list(char **env);
 void export(c_cmd command,t_list *list);
 void split_env(t_env *env_node, char *str);
 void    unset(c_cmd cmd,t_minishell *shell);
+char *check_exist_path(t_list *tmp);
+char *check_valid_path(c_cmd cmd , char **str);
+int        check_pipe(char **str);
+void pipex(c_cmd command , t_minishell *shell);
+
 #endif
