@@ -31,7 +31,7 @@ void echo(c_cmd *cmd)
                     i++;
             }
             if(cmd->cmd[i] == NULL)
-                printf(" ");
+                printf("");
             else
                 printf("%s",cmd->cmd[i]);
         }

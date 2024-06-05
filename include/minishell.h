@@ -36,7 +36,10 @@ typedef struct s_env
 	char	*key;
 	char	*val;
 }	t_env;
-
+typedef struct s_tmp
+{
+	char *cmd;
+}t_tmp;
 
 void builting(c_cmd command ,t_minishell *shell);
 void miniexit(c_cmd command);
@@ -53,5 +56,5 @@ char *check_exist_path(t_list *tmp);
 char *check_valid_path(c_cmd cmd , char **str);
 int        check_pipe(char **str);
 void pipex(c_cmd command , t_minishell *shell);
-
+int check_builtin(char *str);
 #endif

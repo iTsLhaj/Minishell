@@ -12,25 +12,44 @@
 
 #include "../include/minishell.h"
 
-void pipex(c_cmd command , t_minishell *shell)
+t_list *turn_to_list(c_cmd command)
 {
-    int pipefd[2];
-    pid_t pid;
+    t_tmp *tmp;
+    t_list *new;
+    t_list *head;
+    int i;
 
-    if (pipe(fd[2]) ==  -1)
+    head = NULL;
+    i = 0;
+    while(command.cmd[i])
     {
-        perror("pipe");
-        exit(1);
+        tmp = malloc(sizeof(t_tmp));
+        tmp->cmd = command.cmd[i];
+        new = ft_lstnew(tmp);
+        ft_lstadd_back(&head , new);
+        i++;
     }
-    pid = fork();
-    if (pid == -1)
+    return(head);
+}
+
+void pipex(c_cmd cmd , t_minishell *shell)
+{
+    t_list *list;
+    char *str;
+    c_cmd *command;
+    list = turn_to_list(cmd);
+
+    int i;
+
+    i = 0;
+    while(list)
     {
-        perror("fork");
-        exit(1);
+        str = ((t_tmp *)list->content)->cmd;
+        if(check_builtin(str))
+        {
+            command = ((c_cmd *)list->content);
+            builting(*command,shell);
+        }
+        list = list->next;
     }
-    if (pid == 0)
-    {
-        close(fd)
-    }
-    
 }
