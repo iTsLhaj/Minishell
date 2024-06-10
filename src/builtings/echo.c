@@ -12,30 +12,27 @@
 
 #include "minishell.h"
 
-void echo(c_cmd *cmd)
+void echo(char **str , int j)
 {
     int  i;
 
     i = 1;
-    if(ft_strncmp(cmd->cmd[0], "echo",4) == 0)
+    if(str[j + 1] == NULL)
+        printf("\n");
+    else if(ft_strncmp(str[j + 1], "-n",2) == 0)
     {
-        if(cmd->cmd[1] == NULL)
-            printf("\n");
-        else if(ft_strncmp(cmd->cmd[1], "-n",2) == 0)
+        while(str[j + i])
         {
-            while(cmd->cmd[i])
-            {
-                if(ft_strncmp(cmd->cmd[i], "-n",2) != 0)
-                    break;
-                else
-                    i++;
-            }
-            if(cmd->cmd[i] == NULL)
-                printf("");
+            if(ft_strncmp(str[j + i], "-n",2) != 0)
+                break;
             else
-                printf("%s",cmd->cmd[i]);
+                i++;
         }
+        if(str[j + i] == NULL)
+            printf("");
         else
-            printf("%s\n",cmd->cmd[1]);
+            printf("%s",str[j + i]);
     }
+    else
+        printf("%s\n",str[j + i]);
 }

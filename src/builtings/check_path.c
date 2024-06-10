@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char *check_valid_path(c_cmd cmd , char **str)
+char *check_valid_path(char **s, char **str)
 {
     char *path;
     int i;
@@ -22,7 +22,7 @@ char *check_valid_path(c_cmd cmd , char **str)
     while(str[i])
     {
         path = ft_strjoin(str[i], "/");
-        ptr = ft_strjoin(path, cmd.cmd[0]);
+        ptr = ft_strjoin(path, s[0]);
         if(access(ptr, F_OK) == 0)
         {
             return ptr;
@@ -67,7 +67,7 @@ char **turn_env_tab(t_minishell *shell)
     return env;
 }
 
-void check_path(char *path,c_cmd cmd , t_minishell *shell)
+void check_path(char *path,char **str, t_minishell *shell)
 {
     char **env;
     pid_t pid;
@@ -76,7 +76,7 @@ void check_path(char *path,c_cmd cmd , t_minishell *shell)
     {
         pid = fork();
         if(pid == 0)
-            execve(path, cmd.cmd,env);
+            execve(path, str ,env);
         waitpid(pid, NULL, 0);
     }
 }

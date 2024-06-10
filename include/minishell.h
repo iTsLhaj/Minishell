@@ -38,23 +38,33 @@ typedef struct s_env
 }	t_env;
 typedef struct s_tmp
 {
-	char *cmd;
+	char **cmd;
 }t_tmp;
 
-void builting(c_cmd command ,t_minishell *shell);
-void miniexit(c_cmd command);
-void cd(c_cmd *cmd);
-void    pwd(c_cmd *cmd);
+typedef struct s_red
+{
+	char *b_red;
+	char *a_red;
+}	t_red;
+void builting(char **str ,t_minishell *shell);
+void miniexit(char **str);
+void cd(char **str,int i);
+void    pwd(char **str);
 void mini_env(t_list *env);
-void echo(c_cmd *cmd);
-void check_path(char *path,c_cmd cmd , t_minishell *shell);
+void echo(char **str, int j);
+void check_path(char *path,char **str, t_minishell *shell);
 t_list *env_list(char **env);
-void export(c_cmd command,t_list *list);
+void export(char **str,t_list *list, int i);
 void split_env(t_env *env_node, char *str);
-void    unset(c_cmd cmd,t_minishell *shell);
+void    unset(char **str,t_minishell *shell, int i);
 char *check_exist_path(t_list *tmp);
-char *check_valid_path(c_cmd cmd , char **str);
+char *check_valid_path(char **ptr, char **str);
 int        check_pipe(char **str);
 void pipex(c_cmd command , t_minishell *shell);
 int check_builtin(char *str);
+
+int red_out(char **str,t_minishell *shell, int i);
+void run_builting(char **str,t_minishell *shell, int i);
+void check(char **str, t_minishell *shell);
+void red_in(char **str, t_minishell *shell);
 #endif

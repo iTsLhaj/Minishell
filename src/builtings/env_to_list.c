@@ -29,7 +29,7 @@ t_list *env_list(char **env)
     t_list *new;
     t_list *head;
     int i;
-
+    
     head = NULL;
     i = 0;
     while(env[i])

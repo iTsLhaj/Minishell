@@ -12,16 +12,23 @@
 
 #include"../include/minishell.h"
 
-void builting(c_cmd command , t_minishell *shell)
+void builting(char **str , t_minishell *shell)
 {
     t_list *list;
     
-    pwd(&command);
-    miniexit(command);
-    cd(&command);
-    echo(&command);
-    if(ft_strncmp(command.cmd[0], "env", 3) == 0)
+    if(ft_strncmp(str[0],"pwd", 3) == 0)
+        pwd(str);
+    if(ft_strncmp(str[0] , "exit", 4) == 0)
+        miniexit(str);
+    if(ft_strncmp(str[0] ,"cd",2) == 0)
+        cd(str,0);
+    if(ft_strncmp(str[0], "echo",4) == 0)
+        echo(str,0);
+    if(ft_strncmp(str[0], "env", 3) == 0)
         mini_env(shell->env);
-    export(command,shell->env);
-    unset(command, shell);
+    if(ft_strncmp(str[0] , "export", 5) == 0)
+        export(str,shell->env,0);
+    if(ft_strncmp(str[0] , "unset", 5) == 0)
+        unset(str, shell,0);
+    
 }

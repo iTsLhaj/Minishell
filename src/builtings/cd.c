@@ -12,30 +12,27 @@
 
 #include"../include/minishell.h"
 
-void cd(c_cmd *cmd)
+void cd(char **str,int i)
 {
     char *path;
 
     int status;
-    if(ft_strncmp(cmd->cmd[0] ,"cd",2) == 0)
+    path = str[i + 1];
+    if(path == NULL)
     {
-        path = cmd->cmd[1];
-        if(path == NULL)
+        status = chdir(getenv("HOME"));
+        if(status != 0)
         {
-            status = chdir(getenv("HOME"));
-            if(status != 0)
-            {
-                ft_putstr_fd("cd: no such file or directory: ", 2);            
-            }
+            ft_putstr_fd("cd: no such file or directory: ", 2);            
         }
-        else
+    }
+    else
+    {
+       status = chdir(path);
+        if(status != 0)
         {
-            status = chdir(path);
-            if(status != 0)
-            {
-                ft_putstr_fd("cd: no such file or directory: ", 2);
-                ft_putendl_fd(path, 2);
-            }
+            ft_putstr_fd("cd: no such file or directory: ", 2);
+            ft_putendl_fd(path, 2);
         }
     }
 }

@@ -47,28 +47,26 @@ t_list *get_the_env(char *key, t_list *list)
     }
     return NULL;
 }
-int o_check_key(c_cmd cmd,t_list *list)
+int o_check_key(char **str,t_list *list, int i)
 {
     char *key;
 
     while(list)
     {
         key = ((t_env *)(list->content))->key;
-        if(ft_strncmp(key,cmd.cmd[1],ft_strlen(key) ) == 0)
+        if(ft_strncmp(key,str[i + 1],ft_strlen(key)) == 0)
             return 1;
         list = list->next;
     }
     return 0;
 }
-void    unset(c_cmd cmd,t_minishell *shell)
+void    unset(char **str,t_minishell *shell,int i)
 {
     t_list *lst;
-    if(ft_strncmp(cmd.cmd[0], "unset",5) == 0)
+
+    if(o_check_key(str,shell->env,i) == 1)
     {
-        if(o_check_key(cmd,shell->env) == 1)
-        {
-            lst = get_the_env(cmd.cmd[1], shell->env);
-            del_the_env(shell, lst);    
-        }        
-    }
+        lst = get_the_env(str[i + 1], shell->env);
+        del_the_env(shell, lst);    
+    }          
 }

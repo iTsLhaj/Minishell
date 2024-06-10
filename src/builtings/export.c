@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-void declare(c_cmd command,t_list *env)
+void declare(char **str, t_list *env)
 {
     while(env)
     {
@@ -73,7 +73,7 @@ void add_back_to_env(t_list *list, char *key, char *val)
     ft_lstadd_back(&list,new);
 }
 
-void check_export(c_cmd command,t_list *list)
+void check_export(char **str,t_list *list , int i)
 {
     t_list *new;
     char *env[2];
@@ -81,11 +81,11 @@ void check_export(c_cmd command,t_list *list)
     int len;
     char *tst;
 
-    len = ft_strlen(command.cmd[1]);
-    tst = ft_strnstr(command.cmd[1],"+=", len);
+    len = ft_strlen(str[i + 1]);
+    tst = ft_strnstr(str[i + 1],"+=", len);
     if(tst)
     {
-        env[0] = ft_substr(command.cmd[1],0, len - ft_strlen(tst));
+        env[0] = ft_substr(str[i + 1],0, len - ft_strlen(tst));
         env[1] = ft_strdup(tst + 2);
         if(check_key(list, env[0], env[1]) == 1)
             add_val(list, env[0], env[1]);
@@ -95,20 +95,18 @@ void check_export(c_cmd command,t_list *list)
     else
     {
         envp = (t_env *)malloc(sizeof(t_env));
-        split_env(envp,command.cmd[1]);
+        split_env(envp,str[i + 1]);
         new = ft_lstnew(envp);
         ft_lstadd_back(&list,new);
     }
 }
-void export(c_cmd command,t_list *list)
+void export(char **str,t_list *list , int  i)
 {
-    if(ft_strncmp(command.cmd[0] , "export", 5) == 0)
-    {
-        if(command.cmd[1] == NULL)
-            declare(command,list);
-        else if(command.cmd[1])
+        
+        if(str[i + 1] == NULL)
+            declare(str,list);
+        else if(str[i + 1])
         {
-           check_export(command,list);
+           check_export(str,list , i);
         }
-    }
 }

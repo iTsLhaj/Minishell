@@ -12,15 +12,12 @@
 
 #include"../include/minishell.h"
 
-void    pwd(c_cmd *cmd)
+void    pwd(char **str)
 {
     char    *pwd;
     
-    if(ft_strncmp(cmd->cmd[0],"pwd", 3) == 0)
-    {
-        pwd = getcwd(NULL, 0);
-        if(pwd == NULL)
-            return;
-        printf("%s\n", pwd);
-    }
+    pwd = getcwd(NULL, 0);
+    if(pwd == NULL)
+        return;
+    printf("%s\n", pwd);
 }

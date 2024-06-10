@@ -24,32 +24,52 @@ t_list *turn_to_list(c_cmd command)
     while(command.cmd[i])
     {
         tmp = malloc(sizeof(t_tmp));
-        tmp->cmd = command.cmd[i];
+        tmp->cmd = command.cmd;
         new = ft_lstnew(tmp);
         ft_lstadd_back(&head , new);
         i++;
     }
     return(head);
 }
-
-void pipex(c_cmd cmd , t_minishell *shell)
+void run_builting(char **str,t_minishell *shell, int i)
 {
-    t_list *list;
-    char *str;
-    c_cmd *command;
-    list = turn_to_list(cmd);
-
-    int i;
-
-    i = 0;
-    while(list)
-    {
-        str = ((t_tmp *)list->content)->cmd;
-        if(check_builtin(str))
-        {
-            command = ((c_cmd *)list->content);
-            builting(*command,shell);
-        }
-        list = list->next;
-    }
+    printf("%d\n",i);
+    if(ft_strncmp(str[i],"pwd", 3) == 0)
+        pwd(str);
+    if(ft_strncmp(str[i],"exit", 4) == 0)
+        miniexit(str);
+    if(ft_strncmp(str[i],"cd", 2) == 0)
+        cd(str,i);
+    if(ft_strncmp(str[i],"echo", 4) == 0)
+        echo(str,i);
+    if(ft_strncmp(str[i], "env", 3) == 0)
+        mini_env(shell->env);
+    if(ft_strncmp(str[i],"export", 5) == 0)
+        export(str,shell->env,i);
+    if(ft_strncmp(str[i],"unset", 3) == 0)
+        unset(str, shell,i);
 }
+
+// void pipex(c_cmd cmd , t_minishell *shell)
+// {
+//     t_list *list;
+//     char **str;
+//     c_cmd *command;
+//     int i;
+
+//     list = turn_to_list(cmd);
+//     i = 0;
+//     while(list)
+//     {
+//         str = ((t_tmp *)list->content)->cmd;
+//         if(ft_strncmp(str[i], "<",1) == 0)
+//             red_in(str[i],shell, i);
+//         if(ft_strncmp(str[i], ">",1) == 0)
+//             red_out(str[i], shell, i);
+//         if(check_builtin(str[i]))
+//             run_builting(str ,shell, i);
+//         // else if()
+//         list = list->next;
+//         i++;
+//     }
+// }
