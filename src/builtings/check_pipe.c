@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:07:31 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 12:01:50 by agaougao         ###   ########.fr       */
+/*   Created: 2024/06/02 14:23:17 by agaougao          #+#    #+#             */
+/*   Updated: 2024/06/02 14:30:19 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-<<<<<<< HEAD
-void    pwd(c_cmd *cmd)
+
+int        check_pipe(char **str)
 {
-    char    *pwd;
-    
-    if(ft_strncmp(cmd->cmd[0],"pwd", 3) == 0)
+    int i;
+
+    i = 0;
+    while (str[i])
     {
-        pwd = getcwd(NULL, 0);
-        if(pwd == NULL)
-            return;
-        printf("%s\n", pwd);
+        if (ft_strncmp(str[i], "|",1) == 0)
+            return (1);
+        i++;
     }
+    return (0);
 }
-=======
-void    pwd(char **str)
-{
-    char    *pwd;
-    
-    pwd = getcwd(NULL, 0);
-    if(pwd == NULL)
-        return;
-    printf("%s\n", pwd);
-}
->>>>>>> origin/exec

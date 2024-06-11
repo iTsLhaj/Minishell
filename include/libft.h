@@ -3,26 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:00:43 by agaougao          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/11 20:12:48 by hmouhib          ###   ########.fr       */
+=======
+/*   Updated: 2024/05/24 15:14:05 by marvin           ###   ########.fr       */
+>>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+
+<<<<<<< HEAD
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+=======
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h> 
+>>>>>>> origin/exec
 # include <stdint.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+<<<<<<< HEAD
 	struct s_list	*prev;
+=======
+>>>>>>> origin/exec
 }	t_list;
 
 // libc functions :)
@@ -73,4 +89,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> origin/exec

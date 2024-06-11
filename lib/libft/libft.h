@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:00:43 by agaougao          #+#    #+#             */
 /*   Updated: 2024/04/23 18:08:12 by agaougao         ###   ########.fr       */
+=======
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/02 14:00:43 by agaougao          #+#    #+#             */
+/*   Updated: 2024/05/24 15:33:08 by marvin           ###   ########.fr       */
+>>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +27,10 @@
 # include <sys/stat.h>
 # include <fcntl.h> 
 # include <stdint.h>
+<<<<<<< HEAD
 # include "../get_nextline/get_next_line.h"
+=======
+>>>>>>> origin/exec
 
 typedef struct s_list
 {
