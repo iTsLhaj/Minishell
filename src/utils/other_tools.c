@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/08 22:55:33 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/11 20:24:59 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	ms_put_prompt(void)
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	printf(" %s%s%s%s%s",
-		GRN, (ft_strrchr(cwd, '/') + 1),
-		MAG, PROMPT, RESET
-		);
+	printf(" %s%s%s%s%s", GRN, (ft_strrchr(cwd, '/') + 1), MAG, PROMPT, RESET);
 	free(cwd);
 }

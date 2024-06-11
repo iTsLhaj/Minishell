@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/02 15:47:52 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:23:54 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void signal_handler(int sig)
 {
     char *prompt;
-    
+
     prompt = "minishell$";
     if (sig == SIGINT)
     {
@@ -67,7 +67,7 @@ void check(char **str, t_minishell *shell)
             if(path != NULL)
                 check_path(path, str,shell);
             else
-                printf("%s: command not found\n", str[0]); 
+                printf("%s: command not found\n", str[0]);
         }
     }
 }
@@ -156,7 +156,8 @@ int main(int ac , char **av, char **env)
     str->env = env_list(env);
     while(1)
     {
-        cmdline= readline("minishell$ ");
+        ms_put_prompt();
+        cmdline= readline(" ");
         if(cmdline == NULL)
             break;
         command.cmd = ft_split(cmdline, ' ');
@@ -164,7 +165,7 @@ int main(int ac , char **av, char **env)
         if(p == 1)
            ; //pipex(command,str);
         else if(check_red(command) == 1)
-        {   
+        {
             get_ind(command);
             red_out(command.cmd,str,0);
         }
@@ -177,7 +178,7 @@ int main(int ac , char **av, char **env)
         // {
         //     i = get_ind(command);
         //     here_doc();
-        // }   
+        // }
         else
             check(command.cmd,str);
         add_history(cmdline);

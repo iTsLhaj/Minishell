@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:06:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/11 20:13:10 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/11 20:22:22 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,6 @@ typedef struct s_tmp
 {
 	char **cmd;
 }	t_tmp;
-
-/**
- * @author @gogo
- * @attention idk what (t_tmp) is it for but i kept it !
- */
-typedef struct s_red
-{
-	char *b_red;
-	char *a_red;
-}	t_red;
 
 typedef struct s_token
 {
