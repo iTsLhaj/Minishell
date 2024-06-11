@@ -5,20 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 19:54:45 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/05/23 03:10:47 by hmouhib          ###   ########.fr       */
+/*   Created: 2024/05/24 21:06:52 by hmouhib           #+#    #+#             */
+/*   Updated: 2024/06/10 02:21:36 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
+# include <libft.h>
+
+/**
+ *	@brief i just get the current folder name from the cwd
+ *	e.g:
+ *		- /nfs/homes/hmouhib/Desktop/.qd/.local/minishell
+ *		- i take the last one "/minishell"
+ *		- all i need is the folder name "minishell"
+ *		- print the prompt " $FOLDER + PROMPT " -> " minishell » "
+ *		+ adding some colors :)
+ */
+# define PROMPT " »"
+
 /**
  * @brief	a enum type that indicates the token type
  *			wether a PIPE, TRUNCATE, APPEND,
  *			REDIRECT INPUT, HEREDOC, or NONE !
  */
-typedef enum e_token_type
+typedef enum e_tok
 {
 	PIPE = 1,		// |
 	TRUNCATE,		// >
@@ -26,14 +39,7 @@ typedef enum e_token_type
 	REDIRECT_INPUT,	// <
 	HEREDOC,		// <<
 	NONE
-}	t_token_type;
-
-typedef struct s_toklst
-{
-	char			*word;
-	t_token_type	type;
-	struct s_toklst	*next;
-}	t_toklst;
+}	t_tok;
 
 typedef struct s_env_var
 {
@@ -41,23 +47,34 @@ typedef struct s_env_var
 	char	*val;
 }	t_env_var;
 
-typedef struct s_env_list
+typedef struct s_token
 {
-	t_env_var			*evar;
-	struct s_env_list	*next;
-}	t_env_list;
+	int		key;
+	char	*word;
+	t_tok	token;
+}	t_token;
 
 typedef struct s_minishell
 {
-	int			_exit;
-	char		*line_read;
-	t_env_list	*envlist;
+	char	*input;
+	t_list	*envlst;
+	t_list	*lexerlst;
+	t_list	*commands;
 }	t_minishell;
 
-typedef struct	s_list
+typedef struct s_parser
 {
-	char			*val;
-	struct s_list	*next;
-}	t_list;
+	t_list		*lexer_list;
+	t_list		*redirections;
+	int			redirections_count;
+}	t_parser;
+
+typedef struct s_command
+{
+	char		**cmd_argv;
+	int			cmd_argc;
+	t_list		*redirections;
+	int			redirections_count;
+}	t_command;
 
 #endif

@@ -5,37 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 19:53:35 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/05/23 13:04:07 by hmouhib          ###   ########.fr       */
+/*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
+/*   Updated: 2024/06/11 19:41:43 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
-t_minishell	*g_shell;
-
-
-int		main(int argc, char **argv, char **envp)
+void	ms_signal_handler(int sig)
 {
+	if (sig == SIGINT)
+		ms_put_prompt();
+}
+
+void	init_shell(t_minishell *shell, char **envp)
+{
+	shell->envlst = ms_init_env(envp);
+	shell->lexerlst = NULL;
+	shell->input = NULL;
+	shell->commands = NULL;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_minishell	shell;
+
 	(void)argc;
 	(void)argv;
-	char	*env_var;
-
-	g_shell = (t_minishell *)malloc(sizeof(t_minishell));
-	g_shell->_exit = 0;
-	g_shell->envlist = ms_init_envs(envp);
-	while (!g_shell->_exit)
+	signal(SIGINT, &ms_signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	init_shell(&shell, envp);
+	while (1)
 	{
 		ms_put_prompt();
-		g_shell->line_read = readline(" ");
-		ms_init_tokenlst(g_shell->line_read);
-		env_var = ms_get_env(g_shell, g_shell->line_read);
-		if (env_var != NULL)
-			printf("%s\n", env_var);
+		shell.input = readline(" ");
+		if (shell.input == NULL)
+			break ;
+		if (!check_quotes(shell.input))
+		{
+			tokenize_input(&shell);
+			unquote(shell.lexerlst);
+			extend(&shell);
+			if (shell.lexerlst)
+				parser(&shell);
+		}
 		else
-			printf("%s NOT FOUND\n", g_shell->line_read);
-		g_shell->_exit = 1;
+			printf("syntax error: unclosed quote !\n");
+		free(shell.input);
 	}
-	free(g_shell->line_read);
-	free(g_shell);
+	ft_lstclear(&shell.envlst, &clear_env);
+	ft_lstclear(&shell.lexerlst, &clean_content);
 }
