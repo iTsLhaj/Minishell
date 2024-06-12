@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-t_list *turn_to_list(c_cmd command)
+t_list *turn_to_list(t_cmd command)
 {
     t_tmp *tmp;
     t_list *new;

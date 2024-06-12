@@ -72,7 +72,7 @@ void check(char **str, t_minishell *shell)
     }
 }
 
-int check_red(c_cmd cmd)
+int check_red(t_cmd cmd)
 {
     int i;
 
@@ -107,7 +107,7 @@ char  *join_strings(char **cmd)
     }
     return (str);
 }
-void  get_ind(c_cmd cmd)
+void  get_ind(t_cmd cmd)
 {
     int i;
     t_red red;
@@ -144,7 +144,7 @@ int main(int ac , char **av, char **env)
 {
     (void)ac;
     (void)av;
-    c_cmd command;
+    t_cmd command;
     t_minishell *str;
     char *cmdline;
     int p;
@@ -162,25 +162,7 @@ int main(int ac , char **av, char **env)
             break;
         command.cmd = ft_split(cmdline, ' ');
         p = check_pipe(command.cmd);
-        if(p == 1)
-           ; //pipex(command,str);
-        else if(check_red(command) == 1)
-        {
-            get_ind(command);
-            red_out(command.cmd,str,0);
-        }
-        else if(check_red(command) == 2)
-        {
-            get_ind(command);
-            red_in(command.cmd,str);
-        }
-        // else if(check_red(command) == 3)
-        // {
-        //     i = get_ind(command);
-        //     here_doc();
-        // }
-        else
-            check(command.cmd,str);
+        check(command.cmd,str);
         add_history(cmdline);
         free(cmdline);
     }

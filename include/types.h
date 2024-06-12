@@ -63,10 +63,10 @@ typedef struct s_env_var
  * @author @gogo
  * @attention idk what (t_tmp) is it for but i kept it !
  */
-typedef struct s_tmp
-{
-	char **cmd;
-}	t_tmp;
+// typedef struct s_tmp
+// {
+// 	char **cmd;
+// }	t_tmp;
 
 typedef struct s_token
 {
@@ -75,13 +75,13 @@ typedef struct s_token
 	t_tok	token;
 }	t_token;
 
-typedef struct s_minishell
-{
-	char	*input;
-	t_list	*envlst;	// exec: t_list *env; | parse: t_list *envlst;
-	t_list	*lexerlst;
-	t_list	*commands;
-}	t_minishell;
+// typedef struct s_minishell
+// {
+// 	char	*input;
+// 	t_list	*envlst;	// exec: t_list *env; | parse: t_list *envlst;
+// 	t_list	*lexerlst;
+// 	t_list	*commands;
+// }	t_minishell;
 
 typedef struct s_parser
 {

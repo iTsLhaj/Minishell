@@ -77,7 +77,7 @@ void check_export(char **str,t_list *list , int i)
 {
     t_list *new;
     char *env[2];
-    t_env *envp;
+    t_env_var *envp;
     int len;
     char *tst;
 
@@ -94,7 +94,7 @@ void check_export(char **str,t_list *list , int i)
     }
     else
     {
-        envp = (t_env *)malloc(sizeof(t_env));
+        envp = (t_env_var *)malloc(sizeof(t_env_var));
         split_env(envp,str[i + 1]);
         new = ft_lstnew(envp);
         ft_lstadd_back(&list,new);
@@ -110,4 +110,3 @@ void export(char **str,t_list *list , int  i)
            check_export(str,list , i);
         }
 }
->>>>>>> origin/exec

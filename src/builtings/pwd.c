@@ -21,4 +21,3 @@ void    pwd(char **str)
         return;
     printf("%s\n", pwd);
 }
->>>>>>> origin/exec

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void split_env(t_env *env_node, char *str)
+void split_env(t_env_var *env_node, char *str)
 {
     char *val;
     int len;
@@ -25,7 +25,7 @@ void split_env(t_env *env_node, char *str)
 
 t_list *env_list(char **env)
 {
-    t_env *env_node;
+    t_env_var *env_node;
     t_list *new;
     t_list *head;
     int i;
@@ -34,7 +34,7 @@ t_list *env_list(char **env)
     i = 0;
     while(env[i])
     {
-        env_node = malloc(sizeof(t_env));
+        env_node = malloc(sizeof(t_env_var));
         split_env(env_node,env[i]);
         new = ft_lstnew(env_node);
         ft_lstadd_back(&head,new);

@@ -32,4 +32,4 @@ void builting(char **str , t_minishell *shell)
         unset(str, shell,0);
     
 }
->>>>>>> origin/exec
+
