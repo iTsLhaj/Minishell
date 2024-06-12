@@ -12,11 +12,6 @@
 
 #include "../include/minishell.h"
 
-<<<<<<< HEAD
-void check_path(c_cmd cmd)
-{
-    
-=======
 char *check_valid_path(char **s, char **str)
 {
     char *path;
@@ -84,5 +79,4 @@ void check_path(char *path,char **str, t_minishell *shell)
             execve(path, str ,env);
         waitpid(pid, NULL, 0);
     }
->>>>>>> origin/exec
 }

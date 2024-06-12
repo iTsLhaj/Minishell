@@ -31,21 +31,6 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-=======
-#include <libft.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <fcntl.h>
-#include<readline/history.h>
->>>>>>> origin/exec
 
 /**
  * @author @gogo
@@ -333,6 +318,7 @@ typedef struct s_red
 	char *b_red;
 	char *a_red;
 }	t_red;
+
 void builting(char **str ,t_minishell *shell);
 void miniexit(char **str);
 void cd(char **str,int i);

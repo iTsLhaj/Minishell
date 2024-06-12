@@ -6,26 +6,12 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:06 by agaougao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/20 15:03:45 by agaougao         ###   ########.fr       */
-=======
 /*   Updated: 2024/05/30 16:28:04 by agaougao         ###   ########.fr       */
->>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-<<<<<<< HEAD
-void builting(c_cmd command , char **env)
-{
-    pwd(&command);
-    miniexit(command);
-    cd(&command , env);
-    mini_env(command,env);
-    echo(&command);
-}
-=======
 void builting(char **str , t_minishell *shell)
 {
     t_list *list;

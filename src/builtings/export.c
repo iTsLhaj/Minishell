@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 11:35:29 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/23 15:00:14 by marvin           ###   ########.fr       */
-=======
 /*   By: agaougao <agaougao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:35:29 by agaougao          #+#    #+#             */
 /*   Updated: 2024/05/26 10:36:11 by agaougao           ###   ########.fr       */
->>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-<<<<<<< HEAD
-
-void export(c_cmd *cmd);
-// {
-//     char *str;
-//     int len;
-//     int i;
-    
-//     len = ft_strlen(cmd->cmd[1]);
-//     str = (char *)malloc(len + 1);
-//     i = 0;
-
-//     if(ft_strncmp(cmd->cmd[0], "export", 5) == 0)
-//     {
-                
-//     }
-// }
-=======
 void declare(char **str, t_list *env)
 {
     while(env)

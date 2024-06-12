@@ -6,33 +6,12 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/20 14:35:27 by agaougao         ###   ########.fr       */
-=======
 /*   Updated: 2024/05/30 16:27:13 by agaougao         ###   ########.fr       */
->>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-<<<<<<< HEAD
-
-void    unset(char **env, c_cmd *cmd)
-{
-    char *env;
-    
-    if(ft_strncmp(cmd->cmd[0], "unset",5) == 0)
-    {
-        env = getenv(cmd->cmd[1]);
-        if(env != NULL)
-        {
-            
-        }
-        
-    }
-}
-=======
 void	del(void *ptr)
 {
 	free(ptr);
@@ -91,4 +70,3 @@ void    unset(char **str,t_minishell *shell,int i)
         del_the_env(shell, lst);    
     }          
 }
->>>>>>> origin/exec

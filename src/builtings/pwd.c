@@ -12,20 +12,6 @@
 
 #include"../include/minishell.h"
 
-<<<<<<< HEAD
-void    pwd(c_cmd *cmd)
-{
-    char    *pwd;
-    
-    if(ft_strncmp(cmd->cmd[0],"pwd", 3) == 0)
-    {
-        pwd = getcwd(NULL, 0);
-        if(pwd == NULL)
-            return;
-        printf("%s\n", pwd);
-    }
-}
-=======
 void    pwd(char **str)
 {
     char    *pwd;
