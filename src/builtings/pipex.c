@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:32:39 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/02 16:44:25 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:11:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list *turn_to_list(t_cmd command)
     }
     return(head);
 }
-void run_builting(char **str,t_minishell *shell, int i)
+void run_builting(char **str,t_minihell *shell, int i)
 {
     printf("%d\n",i);
     if(ft_strncmp(str[i],"pwd", 3) == 0)
@@ -50,7 +50,7 @@ void run_builting(char **str,t_minishell *shell, int i)
         unset(str, shell,i);
 }
 
-// void pipex(c_cmd cmd , t_minishell *shell)
+// void pipex(c_cmd cmd , t_minihell *shell)
 // {
 //     t_list *list;
 //     char **str;

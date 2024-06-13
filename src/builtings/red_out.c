@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_out.c                                           :+:     :+:   :+:    */
+/*   red_out.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:07:31 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/20 12:01:50 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:16:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
+
+#include<minishell.h>
 #include<fcntl.h>
 
-int red_out(char **str,t_minishell *shell, int i)
+int red_out(char **str, t_minihell *shell, int i)
 {
     int file;
     t_red red;

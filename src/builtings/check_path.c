@@ -49,7 +49,7 @@ char  *check_exist_path(t_list *tmp)
     }
     return (NULL);
 }
-char **turn_env_tab(t_minishell *shell)
+char **turn_env_tab(t_minihell *shell)
 {
     t_list *tmp;
     char **env;
@@ -67,7 +67,7 @@ char **turn_env_tab(t_minishell *shell)
     return env;
 }
 
-void check_path(char *path,char **str, t_minishell *shell)
+void check_path(char *path,char **str, t_minihell *shell)
 {
     char **env;
     pid_t pid;

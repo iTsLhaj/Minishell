@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/11 20:23:54 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:08:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int check_builtin(char *str)
     else
         return (0);
 }
-void check(char **str, t_minishell *shell)
+void check(char **str, t_minihell *shell)
 {
     int s;
     t_list *tmp;
@@ -145,15 +145,15 @@ int main(int ac , char **av, char **env)
     (void)ac;
     (void)av;
     t_cmd command;
-    t_minishell *str;
+    t_minihell *shell;
     char *cmdline;
     int p;
     int i;
 
-    str = malloc(sizeof(t_minishell));
+    shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, SIG_IGN);
-    str->env = env_list(env);
+    shell->env = env_list(env);
     while(1)
     {
         ms_put_prompt();
@@ -162,10 +162,10 @@ int main(int ac , char **av, char **env)
             break;
         command.cmd = ft_split(cmdline, ' ');
         p = check_pipe(command.cmd);
-        check(command.cmd,str);
+        check(command.cmd,shell);
         add_history(cmdline);
         free(cmdline);
     }
-    free(str);
+    free(shell);
     return (0);
 }

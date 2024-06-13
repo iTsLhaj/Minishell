@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:06 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/30 16:28:04 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:10:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void builting(char **str , t_minishell *shell)
+void builting(char **str , t_minihell *shell)
 {
     t_list *list;
     

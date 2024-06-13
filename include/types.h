@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:06:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/11 20:22:22 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/13 22:14:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ typedef struct s_token
 	t_tok	token;
 }	t_token;
 
-// typedef struct s_minishell
-// {
-// 	char	*input;
-// 	t_list	*envlst;	// exec: t_list *env; | parse: t_list *envlst;
-// 	t_list	*lexerlst;
-// 	t_list	*commands;
-// }	t_minishell;
+typedef struct s_minishell
+{
+	char	*input;
+	t_list	*envlst;	// exec: t_list *env; | parse: t_list *envlst;
+	t_list	*lexerlst;
+	t_list	*commands;
+}	t_minishell;
 
 typedef struct s_parser
 {

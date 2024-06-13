@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
-/*   Updated: 2024/05/30 16:27:13 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:12:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	del(void *ptr)
 	free(ptr);
 	ptr = NULL;
 }
-void del_the_env(t_minishell *shell, t_list *lst)
+void del_the_env(t_minihell *shell, t_list *lst)
 {
     t_list *tmp;
     
@@ -60,7 +60,7 @@ int o_check_key(char **str,t_list *list, int i)
     }
     return 0;
 }
-void    unset(char **str,t_minishell *shell,int i)
+void    unset(char **str,t_minihell *shell,int i)
 {
     t_list *lst;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   red_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:47:34 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/09 09:47:44 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:12:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void red_in(char **str, t_minishell *shell)
+void red_in(char **str, t_minihell *shell)
 {
     t_red red;
     int file;
