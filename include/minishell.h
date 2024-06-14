@@ -38,11 +38,6 @@
  * @todo FIX IT !
  */
 /** ******************************************************* */
-typedef struct	s_minihell
-{
-	t_list *env;
-
-}	t_minihell;
 
 typedef struct cmd
 {

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/13 22:08:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:58:18 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void signal_handler(int sig)
     }
 }
 
+void	init_shell(t_minishell *shell, char **envp)
+{
+    shell->envlst = ms_init_env(envp);
+    shell->lexerlst = NULL;
+    shell->input = NULL;
+    shell->commands = NULL;
+}
 
 int check_builtin(char *str)
 {
@@ -43,6 +50,7 @@ int check_builtin(char *str)
     else
         return (0);
 }
+
 void check(char **str, t_minihell *shell)
 {
     int s;
@@ -144,28 +152,40 @@ int main(int ac , char **av, char **env)
 {
     (void)ac;
     (void)av;
+    t_minishell *shell;
     t_cmd command;
-    t_minihell *shell;
-    char *cmdline;
     int p;
     int i;
 
     shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, SIG_IGN);
-    shell->env = env_list(env);
+    shell->envlst = env_list(env);
+    init_shell(shell, env);
     while(1)
     {
         ms_put_prompt();
-        cmdline= readline(" ");
-        if(cmdline == NULL)
+        shell->input = readline(" ");
+        if(shell->input == NULL)
             break;
-        command.cmd = ft_split(cmdline, ' ');
+        if (!check_quotes(shell->input))
+        {
+            tokenize_input(shell);
+            unquote(shell->lexerlst);
+            /** @brief ... skip the extending part since mazal masalitha ! */
+            /// <extend here>
+            if (shell->lexerlst)
+                parser(shell);
+        }
+        else
+            printf("syntax error: unclosed quote !\n");
+        command = shell->commands->content;
         p = check_pipe(command.cmd);
-        check(command.cmd,shell);
-        add_history(cmdline);
+        check(command.cmd, shell);
+        add_history(shell->input);
         free(cmdline);
     }
+    ft_lstclear(&shell->lexerlst, &clean_content);
     free(shell);
     return (0);
 }
