@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:47:34 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/13 22:12:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 20:59:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void red_in(char **str, t_minihell *shell)
+void red_in(char **str, t_minishell *shell)
 {
     t_red red;
     int file;

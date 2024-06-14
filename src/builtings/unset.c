@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:08:28 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/13 22:12:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:11:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	del(void *ptr)
 	free(ptr);
 	ptr = NULL;
 }
-void del_the_env(t_minihell *shell, t_list *lst)
+void del_the_env(t_minishell *shell, t_list *lst)
 {
     t_list *tmp;
     
-    tmp = shell->env;
+    tmp = shell->envlst;
     while(tmp->next != lst)
         tmp = tmp->next;
     if(tmp->next)
@@ -60,13 +60,13 @@ int o_check_key(char **str,t_list *list, int i)
     }
     return 0;
 }
-void    unset(char **str,t_minihell *shell,int i)
+void    unset(char **str,t_minishell *shell,int i)
 {
     t_list *lst;
 
-    if(o_check_key(str,shell->env,i) == 1)
+    if(o_check_key(str,shell->envlst,i) == 1)
     {
-        lst = get_the_env(str[i + 1], shell->env);
+        lst = get_the_env(str[i + 1], shell->envlst);
         del_the_env(shell, lst);    
     }          
 }

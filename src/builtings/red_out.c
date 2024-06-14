@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:07:31 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/13 22:16:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:12:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell.h>
 #include<fcntl.h>
 
-int red_out(char **str, t_minihell *shell, int i)
+int red_out(char **str, t_minishell *shell, int i)
 {
     int file;
     t_red red;
@@ -25,7 +25,7 @@ int red_out(char **str, t_minihell *shell, int i)
     char *p;
     int pid;
 
-    tmp = shell->env;
+    tmp = shell->envlst ;
     file_name = red.a_red;
     command = red.b_red;
     ptr = ft_split(command, ' ');

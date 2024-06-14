@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/14 19:58:18 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/14 21:29:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int check_builtin(char *str)
         return (0);
 }
 
-void check(char **str, t_minihell *shell)
+void check(char **str, t_minishell *shell)
 {
     int s;
     t_list *tmp;
@@ -59,7 +59,7 @@ void check(char **str, t_minihell *shell)
     char **split;
     char *path;
 
-    tmp = shell->env;
+    tmp = shell->envlst;
     s = check_builtin(str[0]);
     if(s != 0)
         builting(str, shell);
@@ -179,11 +179,12 @@ int main(int ac , char **av, char **env)
         }
         else
             printf("syntax error: unclosed quote !\n");
-        command = shell->commands->content;
+        command.cmd = shell->commands->content;
+        printf("%s\n", shell->commands->content);
         p = check_pipe(command.cmd);
         check(command.cmd, shell);
         add_history(shell->input);
-        free(cmdline);
+        free(shell->input);
     }
     ft_lstclear(&shell->lexerlst, &clean_content);
     free(shell);

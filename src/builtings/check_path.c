@@ -49,14 +49,14 @@ char  *check_exist_path(t_list *tmp)
     }
     return (NULL);
 }
-char **turn_env_tab(t_minihell *shell)
+char **turn_env_tab(t_minishell *shell)
 {
     t_list *tmp;
     char **env;
     int i;
     i = 0;
-    tmp = shell->env;
-    env = malloc(sizeof(char *) * (ft_lstsize(shell->env) + 1));
+    tmp = shell->envlst;
+    env = malloc(sizeof(char *) * (ft_lstsize(shell->envlst) + 1));
     while (tmp)
     {
         env[i] = ft_strdup(((t_env *)tmp->content)->val);
@@ -67,7 +67,7 @@ char **turn_env_tab(t_minihell *shell)
     return env;
 }
 
-void check_path(char *path,char **str, t_minihell *shell)
+void check_path(char *path,char **str, t_minishell *shell)
 {
     char **env;
     pid_t pid;

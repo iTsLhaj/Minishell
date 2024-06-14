@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:32:39 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/13 22:11:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:12:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list *turn_to_list(t_cmd command)
     }
     return(head);
 }
-void run_builting(char **str,t_minihell *shell, int i)
+void run_builting(char **str,t_minishell *shell, int i)
 {
     printf("%d\n",i);
     if(ft_strncmp(str[i],"pwd", 3) == 0)
@@ -43,14 +43,14 @@ void run_builting(char **str,t_minihell *shell, int i)
     if(ft_strncmp(str[i],"echo", 4) == 0)
         echo(str,i);
     if(ft_strncmp(str[i], "env", 3) == 0)
-        mini_env(shell->env);
+        mini_env(shell->envlst);
     if(ft_strncmp(str[i],"export", 5) == 0)
-        export(str,shell->env,i);
+        export(str,shell->envlst,i);
     if(ft_strncmp(str[i],"unset", 3) == 0)
         unset(str, shell,i);
 }
 
-// void pipex(c_cmd cmd , t_minihell *shell)
+// void pipex(c_cmd cmd , t_minishell *shell)
 // {
 //     t_list *list;
 //     char **str;

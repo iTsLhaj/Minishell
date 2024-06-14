@@ -11,20 +11,17 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-void declare(char **str, t_list *env)
+void declare(t_list *env)
 {
     while(env)
     {
-        if(((t_env *)env->content)->val)
-        {
-            printf("declare -x ");
-            printf("%s",((t_env *)env->content)->key);
+        printf("declare -x ");
+        printf("%s",((t_env *)env->content)->key);
+        if (((t_env *)env->content)->val != NULL)
             printf("=%s", ((t_env *)env->content)->val);
-            printf("\n");
-        }
+        printf("\n");
         env=env->next; 
     }
-
 }
 
 int check_key(t_list *list, char *key, char *val)
@@ -68,11 +65,27 @@ void add_back_to_env(t_list *list, char *key, char *val)
     t_list *new;
     env = (t_env *)malloc(sizeof(t_env));
     env->key = ft_strdup(key);
-    env->val = ft_strdup(val);
+    if(val == NULL)
+        env->val = NULL;
+    else
+        env->val = ft_strdup(val);
     new = ft_lstnew(env);
     ft_lstadd_back(&list,new);
 }
 
+int check_equal(char *str)
+{
+    int i;
+
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == '=')
+            return 1;
+        i++;
+    }
+    return 0;
+}
 void check_export(char **str,t_list *list , int i)
 {
     t_list *new;
@@ -80,9 +93,12 @@ void check_export(char **str,t_list *list , int i)
     t_env_var *envp;
     int len;
     char *tst;
+    char *tmp;
+    int s;
 
     len = ft_strlen(str[i + 1]);
     tst = ft_strnstr(str[i + 1],"+=", len);
+    s =  check_equal(str[i + 1]);
     if(tst)
     {
         env[0] = ft_substr(str[i + 1],0, len - ft_strlen(tst));
@@ -90,9 +106,15 @@ void check_export(char **str,t_list *list , int i)
         if(check_key(list, env[0], env[1]) == 1)
             add_val(list, env[0], env[1]);
         else
-            add_back_to_env(list, env[0], env[1]);
+            add_back_to_env(list, env[0],env[1]);
     }
-    else
+    else if(s == 0)
+    {
+        env[0] = ft_substr(str[i + 1],0, len);
+        env[1] = NULL;
+        add_back_to_env(list, env[0], env[1]);
+    }
+    else 
     {
         envp = (t_env_var *)malloc(sizeof(t_env_var));
         split_env(envp,str[i + 1]);
@@ -104,7 +126,7 @@ void export(char **str,t_list *list , int  i)
 {
         
         if(str[i + 1] == NULL)
-            declare(str,list);
+            declare(list);
         else if(str[i + 1])
         {
            check_export(str,list , i);

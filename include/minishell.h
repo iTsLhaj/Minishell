@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:59 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/13 22:15:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/14 20:58:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,33 @@ typedef struct s_red
 }	t_red;
 
 
-void builting(char **str ,t_minihell *shell);
+void builting(char **str ,t_minishell *shell);
 void miniexit(char **str);
 void cd(char **str,int i);
 void    pwd(char **str);
 void mini_env(t_list *env);
 void echo(char **str, int j);
-void check_path(char *path,char **str, t_minihell *shell);
+void check_path(char *path,char **str, t_minishell *shell);
 t_list *env_list(char **env);
 void export(char **str,t_list *list, int i);
 
 /** @todo fix the conflict t_env by t_env_var */
 void split_env(t_env_var *env_node, char *str);
 
-void    unset(char **str,t_minihell *shell, int i);
+void    unset(char **str,t_minishell *shell, int i);
 char *check_exist_path(t_list *tmp);
 char *check_valid_path(char **ptr, char **str);
 int        check_pipe(char **str);
 
 /** @todo fix the conflict c_cmd by t_command */
-void pipex(t_cmd command , t_minihell *shell);
+void pipex(t_cmd command , t_minishell *shell);
 
 int check_builtin(char *str);
 
-int red_out(char **str, t_minihell *shell, int i);
-void run_builting(char **str,t_minihell *shell, int i);
-void check(char **str, t_minihell *shell);
-void red_in(char **str, t_minihell *shell);
+int red_out(char **str, t_minishell *shell, int i);
+void run_builting(char **str,t_minishell *shell, int i);
+void check(char **str, t_minishell *shell);
+void red_in(char **str, t_minishell *shell);
 
 /** ******************************************************* */
 
