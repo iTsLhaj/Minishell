@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/10 05:51:05 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:05:17 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@ void	extend(t_minishell *shell)
 	while (lxrlst)
 	{
 		data = lxrlst->content;
-		if (data->word[0] == '$')
+		if (data->word != NULL)
 		{
-			temp = ms_get_env(shell->envlst, data->word);
-			free(data->word);
-			if (temp != NULL)
+			if (data->word[0] == '$')
 			{
-				data->word = ft_strdup(temp);
-				free(temp);
+				temp = ms_get_env(shell->envlst, data->word);
+				free(data->word);
+				if (temp != NULL)
+				{
+					data->word = ft_strdup(temp);
+					free(temp);
+				}
+				else
+					data->word = ft_strdup("");
 			}
-			else
-				data->word = ft_strdup("");
 		}
 		lxrlst = lxrlst->next;
 	}
