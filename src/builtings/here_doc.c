@@ -3,11 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:04 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/09 09:48:16 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:25:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include<minishell.h>
 
+void here_doc(t_minishell *shell)
+{
+    
+}

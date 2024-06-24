@@ -11,10 +11,33 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void *ft_swap(char *s1 , char *s2)
+{
+    char *tmp;
+
+    tmp = s1;
+    s1 = s2;
+    s2 = tmp;
+
+    return tmp;
+}
+void check_sorted(char *ptr , char *str)
+{   
+    if(ft_strncmp(ptr, str, strlen(str)) > 0)
+    {
+        ft_swap(ptr, str);
+    }
+}
 void declare(t_list *env)
 {
+    char *str;
+    char *ptr;
     while(env)
     {
+        // ptr = ((t_env *)env->content)->key;
+        // str = ((t_env *)env->next->content)->key;
+        // check_sorted(ptr, str);
         printf("declare -x ");
         printf("%s",((t_env *)env->content)->key);
         if (((t_env *)env->content)->val != NULL)

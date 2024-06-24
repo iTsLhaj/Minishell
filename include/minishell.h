@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:59 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/14 20:58:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/23 15:03:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_red
 }	t_red;
 
 
-void builting(char **str ,t_minishell *shell);
+void builting(char **str, t_minishell *shell);
 void miniexit(char **str);
 void cd(char **str,int i);
 void    pwd(char **str);
@@ -87,10 +87,10 @@ void pipex(t_cmd command , t_minishell *shell);
 
 int check_builtin(char *str);
 
-int red_out(char **str, t_minishell *shell, int i);
+int red_out(t_minishell *shell);
 void run_builting(char **str,t_minishell *shell, int i);
-void check(char **str, t_minishell *shell);
-void red_in(char **str, t_minishell *shell);
+void check(t_minishell *shell);
+void red_in(t_minishell *shell);
 
 /** ******************************************************* */
 

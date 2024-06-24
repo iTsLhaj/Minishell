@@ -1,0 +1,9 @@
+Makefile
+PROCESS.md
+README.md
+assets
+include
+lib
+minishell
+out
+src

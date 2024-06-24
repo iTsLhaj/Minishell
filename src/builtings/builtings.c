@@ -6,15 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:06 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/14 21:09:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/15 07:07:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void builting(char **str , t_minishell *shell)
+void builting(char **str, t_minishell *shell)
 {
-    t_list *list;
     
     if(ft_strncmp(str[0],"pwd", 3) == 0)
         pwd(str);

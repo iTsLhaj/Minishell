@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/14 21:29:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:20:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,30 @@
 
 void signal_handler(int sig)
 {
-    char *prompt;
-
-    prompt = "minishell$";
     if (sig == SIGINT)
     {
-        printf("\n%s", prompt);
+        ms_put_prompt();
     }
+}
+
+int check_red(t_command *command)
+{
+    t_token *redirection;
+    
+    if (command->redirections == NULL)
+        return 0;
+    redirection = (t_token *)(command->redirections->content);
+
+    if(redirection != NULL)
+    {
+        if(redirection->token == TRUNCATE)
+            return (1);
+        else if(redirection->token == HEREDOC)
+            return (2);
+        else if(redirection->token == REDIRECT_INPUT)
+            return (3);   
+    }
+    return (0);
 }
 
 void	init_shell(t_minishell *shell, char **envp)
@@ -33,6 +50,7 @@ void	init_shell(t_minishell *shell, char **envp)
 
 int check_builtin(char *str)
 {
+    
     if (ft_strncmp(str, "echo",4) == 0)
         return (1);
     else if (ft_strncmp(str, "cd",2) == 0)
@@ -51,51 +69,58 @@ int check_builtin(char *str)
         return (0);
 }
 
-void check(char **str, t_minishell *shell)
+int  redirection(t_minishell *shell)
+{
+    t_command *command;
+    int p;
+
+    command = ((t_command *)shell->commands->content);
+    p = check_red(command);
+    if(p  == 1)
+        red_out(shell);
+    else if(p == 2)
+        ;
+    else if(p == 3)
+        red_in(shell);
+    else
+        return (0);
+    return (100);
+}
+
+void check(t_minishell *shell)
 {
     int s;
     t_list *tmp;
     char *ptr;
     char **split;
     char *path;
+    char **str;
+
 
     tmp = shell->envlst;
-    s = check_builtin(str[0]);
-    if(s != 0)
-        builting(str, shell);
-    else
-    {
-        ptr = check_exist_path(tmp);
-        if(ptr == NULL)
-            printf(" %s: No such file or directory\n", str[0]);
+    // while(shell->commands)
+    // {    
+        str =  ((t_command *)shell->commands->content)->cmd_argv;
+        s = check_builtin(str[0]);
+        if(s != 0)
+            builting(str,shell);
         else
         {
-            split = ft_split(ptr , ':');
-            path = check_valid_path(str , split);
-            if(path != NULL)
-                check_path(path, str,shell);
+            ptr = check_exist_path(tmp);
+            if(ptr == NULL)
+                printf(" %s: No such file or directory\n", str[0]);
             else
-                printf("%s: command not found\n", str[0]);
+            {
+                split = ft_split(ptr , ':');
+                path = check_valid_path(str , split);
+                if(path != NULL)
+                    check_path(path, str,shell);
+                else
+                    printf("%s: command not found\n", str[0]);
+            }
         }
-    }
-}
-
-int check_red(t_cmd cmd)
-{
-    int i;
-
-    i = 0;
-    while(cmd.cmd[i]!= NULL)
-    {
-        if(ft_strncmp(cmd.cmd[i], ">", 1) == 0)
-            return (1);
-        else if(ft_strncmp(cmd.cmd[i], "<", 1) == 0)
-            return (2);
-        else if(ft_strncmp(cmd.cmd[i], "<<", 2) == 0)
-            return (3);
-        i++;
-    }
-    return (0);
+    // }
+    // shell->commands = shell->commands->next;
 }
 char  *join_strings(char **cmd)
 {
@@ -153,9 +178,11 @@ int main(int ac , char **av, char **env)
     (void)ac;
     (void)av;
     t_minishell *shell;
-    t_cmd command;
+    char **str;
     int p;
     int i;
+    t_command *command;
+    // t_token *redirection;
 
     shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
@@ -179,14 +206,18 @@ int main(int ac , char **av, char **env)
         }
         else
             printf("syntax error: unclosed quote !\n");
-        command.cmd = shell->commands->content;
-        printf("%s\n", shell->commands->content);
-        p = check_pipe(command.cmd);
-        check(command.cmd, shell);
+        command = (t_command *)shell->commands->content;
+        p = check_red(command);
+        if(p != 0)
+           redirection(shell);
+        else  
+           check(shell);
+        
         add_history(shell->input);
         free(shell->input);
     }
     ft_lstclear(&shell->lexerlst, &clean_content);
+    ft_lstclear(&shell->envlst, &clean_content);
     free(shell);
     return (0);
 }

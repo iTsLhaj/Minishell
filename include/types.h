@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:06:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/14 21:05:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/17 15:05:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ typedef struct s_command
 	int			redirections_count;
 	int			input_fd;
 	int			output_fd;
-}	t_command;
+}		t_command;
 
 #endif
