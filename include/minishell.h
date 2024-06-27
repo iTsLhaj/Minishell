@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:59 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/23 15:03:48 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:27:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int check_builtin(char *str);
 int red_out(t_minishell *shell);
 void run_builting(char **str,t_minishell *shell, int i);
 void check(t_minishell *shell);
-void red_in(t_minishell *shell);
+int red_in(t_minishell *shell);
+int here_doc(t_minishell *shell);
 
 /** ******************************************************* */
 

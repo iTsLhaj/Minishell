@@ -4,7 +4,7 @@ LIB		=	lib/libft/libft.a
 INCFILE	=	include/
 
 SRCS	=	src/main.c src/builtings/builtings.c src/builtings/exit.c src/builtings/cd.c src/builtings/pwd.c src/builtings/env.c src/builtings/export.c src/builtings/echo.c src/builtings/check_path.c src/builtings/env_to_list.c src/builtings/unset.c \
-			src/builtings/check_pipe.c src/builtings/pipex.c src/builtings/red_out.c src/builtings/red_in.c \
+			src/builtings/check_pipe.c src/builtings/pipex.c src/builtings/red_out.c src/builtings/red_in.c  src/builtings/here_doc.c \
 			src/environment/init_env.c	\
 			src/environment/env_getter.c	\
 			src/tokenization/lexer_utils.c	\

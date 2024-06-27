@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:47:34 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/24 13:22:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:23:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void red_in(t_minishell *shell)
+int red_in(t_minishell *shell)
 {
     t_command *command;
     char *file_name;
@@ -54,4 +54,5 @@ void red_in(t_minishell *shell)
         else
             waitpid(pid ,NULL, 0);
     }
+    return(1);
 }

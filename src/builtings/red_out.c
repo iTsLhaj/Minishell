@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:07:31 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/23 15:37:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:24:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int red_out(t_minishell *shell)
     }
     else
         waitpid(pid, NULL,0);
-    return 0;    
+    return 1;    
 }

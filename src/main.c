@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/24 13:20:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:53:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,29 @@ void signal_handler(int sig)
     }
 }
 
-int check_red(t_command *command)
+int check_red(t_minishell *shell)
 {
     t_token *redirection;
+    t_command *command;
+    int stat;
+    
+    stat = 0;
+    command = (t_command *)(shell->commands->content);
     
     if (command->redirections == NULL)
         return 0;
-    redirection = (t_token *)(command->redirections->content);
-
-    if(redirection != NULL)
+    while(command->redirections)
     {
+        redirection = (t_token *)(command->redirections->content);
         if(redirection->token == TRUNCATE)
-            return (1);
+           stat = red_out(shell);
         else if(redirection->token == HEREDOC)
-            return (2);
+           stat =  here_doc(shell);
         else if(redirection->token == REDIRECT_INPUT)
-            return (3);   
+            stat = red_in(shell);
+        command->redirections = command->redirections->next;
     }
-    return (0);
+    return (stat);
 }
 
 void	init_shell(t_minishell *shell, char **envp)
@@ -67,24 +72,6 @@ int check_builtin(char *str)
         return (7);
     else
         return (0);
-}
-
-int  redirection(t_minishell *shell)
-{
-    t_command *command;
-    int p;
-
-    command = ((t_command *)shell->commands->content);
-    p = check_red(command);
-    if(p  == 1)
-        red_out(shell);
-    else if(p == 2)
-        ;
-    else if(p == 3)
-        red_in(shell);
-    else
-        return (0);
-    return (100);
 }
 
 void check(t_minishell *shell)
@@ -122,66 +109,65 @@ void check(t_minishell *shell)
     // }
     // shell->commands = shell->commands->next;
 }
-char  *join_strings(char **cmd)
-{
-    char *str;
-    // char *ptr;
-    int i;
+// char  *join_strings(char **cmd)
+// {
+//     char *str;
+//     // char *ptr;
+//     int i;
 
-    i = 0;
-    str = NULL;
-    while(cmd[i])
-    {
-        str = ft_strjoin(str, cmd[i]);
-        if(cmd[i + 1] == NULL)
-            break;
-        str = ft_strjoin(str, " ");
-        i++;
-    }
-    return (str);
-}
-void  get_ind(t_cmd cmd)
-{
-    int i;
-    t_red red;
-    i = 0;
-    int len;
-    char *str;
-    char *ptr;
+//     i = 0;
+//     str = NULL;
+//     while(cmd[i])
+//     {
+//         str = ft_strjoin(str, cmd[i]);
+//         if(cmd[i + 1] == NULL)
+//             break;
+//         str = ft_strjoin(str, " ");
+//         i++;
+//     }
+//     return (str);
+// }
+// void  get_ind(t_cmd cmd)
+// {
+//     int i;
+//     t_red red;
+//     i = 0;
+//     int len;
+//     char *str;
+//     char *ptr;
 
-    ptr = join_strings(cmd.cmd);
-    while(ptr[i])
-    {
-        len = ft_strlen(ptr);
-        if(ptr[i] == '>')
-        {
-            str = ft_strnstr(ptr , ">" , len);
-            red.a_red = ft_strdup(str + 2);
-            red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
-            return;
-        }
-        else if(ptr[i] == '<')
-        {
-            str = ft_strnstr(ptr , "<" , len);
-            red.a_red = ft_strdup(str + 2);
-            red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
-            return;
-        }
-        else if(ft_strncmp(ptr, "<<", 2) == 0)
-            return;
-        i++;
-    }
-    return;
-}
+//     ptr = join_strings(cmd.cmd);
+//     while(ptr[i])
+//     {
+//         len = ft_strlen(ptr);
+//         if(ptr[i] == '>')
+//         {
+//             str = ft_strnstr(ptr , ">" , len);
+//             red.a_red = ft_strdup(str + 2);
+//             red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
+//             return;
+//         }
+//         else if(ptr[i] == '<')
+//         {
+//             str = ft_strnstr(ptr , "<" , len);
+//             red.a_red = ft_strdup(str + 2);
+//             red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
+//             return;
+//         }
+//         else if(ft_strncmp(ptr, "<<", 2) == 0)
+//             return;
+//         i++;
+//     }
+//     return;
+// }
 int main(int ac , char **av, char **env)
 {
     (void)ac;
     (void)av;
     t_minishell *shell;
-    char **str;
-    int p;
-    int i;
-    t_command *command;
+    // char **str;
+    // int i;
+    // t_command *command;
     // t_token *redirection;
 
     shell = malloc(sizeof(t_minishell));
@@ -206,13 +192,9 @@ int main(int ac , char **av, char **env)
         }
         else
             printf("syntax error: unclosed quote !\n");
-        command = (t_command *)shell->commands->content;
-        p = check_red(command);
-        if(p != 0)
-           redirection(shell);
-        else  
-           check(shell);
-        
+        // command = (t_command *)shell->commands->content;
+        if(check_red(shell) == 0)
+            check(shell);
         add_history(shell->input);
         free(shell->input);
     }
