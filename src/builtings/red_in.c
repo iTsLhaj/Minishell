@@ -27,7 +27,7 @@ int red_in(t_minishell *shell)
     file_name = ((t_token *)command->redirections->content)->word;
     cmd = command->cmd_argv;
     if(access(file_name , F_OK) == -1)
-        printf("minishell : %s: no such file or directory\n", file);
+        printf("minishell : %s: no such file or directory\n", file_name);
     else
     {
         file = open(file_name, O_RDONLY);

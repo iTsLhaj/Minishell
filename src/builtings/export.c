@@ -12,23 +12,23 @@
 
 #include "../include/minishell.h"
 
-void *ft_swap(char *s1 , char *s2)
-{
-    char *tmp;
+// void *ft_swap(char *s1 , char *s2)
+// {
+//     char *tmp;
 
-    tmp = s1;
-    s1 = s2;
-    s2 = tmp;
+//     tmp = s1;
+//     s1 = s2;
+//     s2 = tmp;
 
-    return tmp;
-}
-void check_sorted(char *ptr , char *str)
-{   
-    if(ft_strncmp(ptr, str, strlen(str)) > 0)
-    {
-        ft_swap(ptr, str);
-    }
-}
+//     return tmp;
+// }
+// void check_sorted(char *ptr , char *str)
+// {   
+//     if(ft_strncmp(ptr, str, strlen(str)) > 0)
+//     {
+//         ft_swap(ptr, str);
+//     }
+// }
 void declare(t_list *env)
 {
     char *str;

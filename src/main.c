@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/26 17:53:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:37:24 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int check_red(t_minishell *shell)
            stat =  here_doc(shell);
         else if(redirection->token == REDIRECT_INPUT)
             stat = red_in(shell);
+        else if(redirection->token == APPEND)
+            stat = append_red(shell)
         command->redirections = command->redirections->next;
     }
     return (stat);
@@ -85,90 +87,32 @@ void check(t_minishell *shell)
 
 
     tmp = shell->envlst;
-    // while(shell->commands)
-    // {    
-        str =  ((t_command *)shell->commands->content)->cmd_argv;
-        s = check_builtin(str[0]);
-        if(s != 0)
-            builting(str,shell);
+    str =  ((t_command *)shell->commands->content)->cmd_argv;
+    s = check_builtin(str[0]);
+    if(s != 0)
+        builting(str,shell);
+    else
+    {
+        ptr = check_exist_path(tmp);
+        if(ptr == NULL)
+            printf(" %s: No such file or directory\n", str[0]);
         else
         {
-            ptr = check_exist_path(tmp);
-            if(ptr == NULL)
-                printf(" %s: No such file or directory\n", str[0]);
+            split = ft_split(ptr , ':');
+            path = check_valid_path(str , split);
+            if(path != NULL)
+                check_path(path, str,shell);
             else
-            {
-                split = ft_split(ptr , ':');
-                path = check_valid_path(str , split);
-                if(path != NULL)
-                    check_path(path, str,shell);
-                else
-                    printf("%s: command not found\n", str[0]);
-            }
+                printf("%s: command not found\n", str[0]);
         }
-    // }
-    // shell->commands = shell->commands->next;
+    }
 }
-// char  *join_strings(char **cmd)
-// {
-//     char *str;
-//     // char *ptr;
-//     int i;
 
-//     i = 0;
-//     str = NULL;
-//     while(cmd[i])
-//     {
-//         str = ft_strjoin(str, cmd[i]);
-//         if(cmd[i + 1] == NULL)
-//             break;
-//         str = ft_strjoin(str, " ");
-//         i++;
-//     }
-//     return (str);
-// }
-// void  get_ind(t_cmd cmd)
-// {
-//     int i;
-//     t_red red;
-//     i = 0;
-//     int len;
-//     char *str;
-//     char *ptr;
-
-//     ptr = join_strings(cmd.cmd);
-//     while(ptr[i])
-//     {
-//         len = ft_strlen(ptr);
-//         if(ptr[i] == '>')
-//         {
-//             str = ft_strnstr(ptr , ">" , len);
-//             red.a_red = ft_strdup(str + 2);
-//             red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
-//             return;
-//         }
-//         else if(ptr[i] == '<')
-//         {
-//             str = ft_strnstr(ptr , "<" , len);
-//             red.a_red = ft_strdup(str + 2);
-//             red.b_red = ft_substr(ptr , 0 , len - ft_strlen(str));
-//             return;
-//         }
-//         else if(ft_strncmp(ptr, "<<", 2) == 0)
-//             return;
-//         i++;
-//     }
-//     return;
-// }
 int main(int ac , char **av, char **env)
 {
     (void)ac;
     (void)av;
     t_minishell *shell;
-    // char **str;
-    // int i;
-    // t_command *command;
-    // t_token *redirection;
 
     shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
@@ -192,7 +136,6 @@ int main(int ac , char **av, char **env)
         }
         else
             printf("syntax error: unclosed quote !\n");
-        // command = (t_command *)shell->commands->content;
         if(check_red(shell) == 0)
             check(shell);
         add_history(shell->input);

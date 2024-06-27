@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:59 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/26 10:27:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/27 11:48:01 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void cd(char **str,int i);
 void    pwd(char **str);
 void mini_env(t_list *env);
 void echo(char **str, int j);
-void check_path(char *path,char **str, t_minishell *shell);
+void  check_path(char *path,char **str, t_minishell *shell);
 t_list *env_list(char **env);
 void export(char **str,t_list *list, int i);
 
@@ -92,7 +92,7 @@ void run_builting(char **str,t_minishell *shell, int i);
 void check(t_minishell *shell);
 int red_in(t_minishell *shell);
 int here_doc(t_minishell *shell);
-
+int append_red(t_minishell *shell);
 /** ******************************************************* */
 
 /**
