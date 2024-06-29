@@ -6,15 +6,14 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:45:15 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/27 11:55:55 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/29 11:21:29 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell.h>
 
-int append_red(t_minishell *shell)
+int append_red(t_minishell *shell, t_command *command)
 {
-    t_command *command;
     t_token *redirection;
     int fd;
     char **cmdline;
@@ -23,7 +22,6 @@ int append_red(t_minishell *shell)
     int out = dup(1);
 
     tmp = shell->envlst;
-    command =  (t_command *)(shell->commands->content);
     redirection = ((t_token *)command->redirections->content);
     cmdline = command->cmd_argv;
     fd = open(redirection->word , O_WRONLY | O_CREAT | O_APPEND , 0644);
@@ -42,10 +40,11 @@ int append_red(t_minishell *shell)
             {
                 dup2(fd, 1);
                 close(fd);
-                check(shell);
+                check(shell,command);
             }
         }
         dup2(out ,1);
+        exit(0);
     }
     else
         waitpid(pid, NULL , 0);

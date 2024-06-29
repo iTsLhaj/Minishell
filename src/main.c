@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/27 15:37:24 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/29 11:20:36 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,30 @@ void signal_handler(int sig)
     }
 }
 
-int check_red(t_minishell *shell)
+int check_red(t_minishell *shell , t_command *command)
 {
     t_token *redirection;
-    t_command *command;
     int stat;
     
     stat = 0;
-    command = (t_command *)(shell->commands->content);
-    
     if (command->redirections == NULL)
         return 0;
     while(command->redirections)
     {
         redirection = (t_token *)(command->redirections->content);
         if(redirection->token == TRUNCATE)
-           stat = red_out(shell);
+           stat = red_out(shell,command);
         else if(redirection->token == HEREDOC)
-           stat =  here_doc(shell);
+        {
+            if(stat != 2)
+                stat =  here_doc(shell,command);
+            else if(command->redirections == NULL)
+                break;
+        }
         else if(redirection->token == REDIRECT_INPUT)
-            stat = red_in(shell);
+            stat = red_in(shell,command);
         else if(redirection->token == APPEND)
-            stat = append_red(shell)
+            stat = append_red(shell,command);
         command->redirections = command->redirections->next;
     }
     return (stat);
@@ -76,7 +78,7 @@ int check_builtin(char *str)
         return (0);
 }
 
-void check(t_minishell *shell)
+void check(t_minishell *shell , t_command *command)
 {
     int s;
     t_list *tmp;
@@ -85,9 +87,8 @@ void check(t_minishell *shell)
     char *path;
     char **str;
 
-
     tmp = shell->envlst;
-    str =  ((t_command *)shell->commands->content)->cmd_argv;
+    str =  command->cmd_argv;
     s = check_builtin(str[0]);
     if(s != 0)
         builting(str,shell);
@@ -113,6 +114,7 @@ int main(int ac , char **av, char **env)
     (void)ac;
     (void)av;
     t_minishell *shell;
+    t_command *command;
 
     shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
@@ -136,8 +138,19 @@ int main(int ac , char **av, char **env)
         }
         else
             printf("syntax error: unclosed quote !\n");
-        if(check_red(shell) == 0)
-            check(shell);
+        if(shell->commands->next == NULL)
+        {
+            while(shell->commands != NULL)
+            {
+                command = (t_command *)(shell->commands->content);
+                if(check_red(shell, command) == 0)
+                    check(shell, command);
+                shell->commands = shell->commands->next;
+            }
+        }
+        else 
+            check_pipe(shell);
+        
         add_history(shell->input);
         free(shell->input);
     }

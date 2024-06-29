@@ -3,73 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:32:39 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/14 21:12:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/29 13:14:07 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_list *turn_to_list(t_cmd command)
+
+
+void pipex(t_minishell *shell , t_command *command, t_command *nex_command)
 {
-    t_tmp *tmp;
-    t_list *new;
-    t_list *head;
-    int i;
-
-    head = NULL;
-    i = 0;
-    while(command.cmd[i])
-    {
-        tmp = malloc(sizeof(t_tmp));
-        tmp->cmd = command.cmd;
-        new = ft_lstnew(tmp);
-        ft_lstadd_back(&head , new);
-        i++;
-    }
-    return(head);
+    int fd[2];
+    int pid;
+    int fd1;
+    int fd2;
+    pipe(fd);        
+    pid = fork();
+    // if(!= -1)
+    // {
+        if (pid == 0)
+        {
+            dup2(fd[1], 1);
+            close(fd[0]);
+            close(fd[1]);
+            if(check_red(shell , command) == 0)
+                check(shell , command);
+        }
+        // else if(pid != -1)
+        // {
+        //     dup2(fd[0], 0);
+        //     close(fd[1]);
+        //     close(fd[0]);
+        //     if(check_red(shell , nex_command) == 0)
+        //         check(shell, nex_command);
+        // }
+    // }
 }
-void run_builting(char **str,t_minishell *shell, int i)
-{
-    printf("%d\n",i);
-    if(ft_strncmp(str[i],"pwd", 3) == 0)
-        pwd(str);
-    if(ft_strncmp(str[i],"exit", 4) == 0)
-        miniexit(str);
-    if(ft_strncmp(str[i],"cd", 2) == 0)
-        cd(str,i);
-    if(ft_strncmp(str[i],"echo", 4) == 0)
-        echo(str,i);
-    if(ft_strncmp(str[i], "env", 3) == 0)
-        mini_env(shell->envlst);
-    if(ft_strncmp(str[i],"export", 5) == 0)
-        export(str,shell->envlst,i);
-    if(ft_strncmp(str[i],"unset", 3) == 0)
-        unset(str, shell,i);
-}
-
-// void pipex(c_cmd cmd , t_minishell *shell)
-// {
-//     t_list *list;
-//     char **str;
-//     c_cmd *command;
-//     int i;
-
-//     list = turn_to_list(cmd);
-//     i = 0;
-//     while(list)
-//     {
-//         str = ((t_tmp *)list->content)->cmd;
-//         if(ft_strncmp(str[i], "<",1) == 0)
-//             red_in(str[i],shell, i);
-//         if(ft_strncmp(str[i], ">",1) == 0)
-//             red_out(str[i], shell, i);
-//         if(check_builtin(str[i]))
-//             run_builting(str ,shell, i);
-//         // else if()
-//         list = list->next;
-//         i++;
-//     }
-// }

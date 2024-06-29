@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   red_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:47:34 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/26 10:23:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/29 11:20:59 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-int red_in(t_minishell *shell)
+int red_in(t_minishell *shell, t_command *command)
 {
-    t_command *command;
     char *file_name;
     char **cmd;
     int file;
@@ -23,7 +22,6 @@ int red_in(t_minishell *shell)
     t_list *tmp;
     
     tmp = shell->envlst;
-    command = (t_command *)shell->commands->content;
     file_name = ((t_token *)command->redirections->content)->word;
     cmd = command->cmd_argv;
     if(access(file_name , F_OK) == -1)
@@ -46,13 +44,13 @@ int red_in(t_minishell *shell)
                 {
                     dup2(file ,0);
                     close(file);
-                    check(shell);
+                    check(shell,command);
                 }    
             }
             dup2(in ,0);
+            exit(0);
         }
-        else
-            waitpid(pid ,NULL, 0);
+        waitpid(pid ,NULL, 0);
     }
     return(1);
 }
