@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:51:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 18:58:39 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/07/01 01:03:17 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static t_command	*fetch_command(t_parser *parsing_data)
 	t_list	*cur;
 
 	i = 0;
-	cur = parsing_data->lexer_list;
 	if (export_redirections(parsing_data) < 0)
 		return (NULL);
+	cur = parsing_data->lexer_list;
 	args_count = count_args(parsing_data->lexer_list);
 	argv_ = ft_calloc((args_count + 1), sizeof(char *));
 	while (args_count > 0)

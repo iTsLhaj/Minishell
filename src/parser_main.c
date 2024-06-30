@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 19:21:01 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/07/01 01:01:33 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ms_put_prompt();
-		shell.input = readline(" ");
+		shell.input = readline("");
 		if (shell.input == NULL)
 			break ;
 		// shell.input = purify_empty_quotes(shell.input);
@@ -92,8 +92,8 @@ int	main(int argc, char **argv, char **envp)
 			}
 			else
 				check_pipe(&shell);
+			add_history(shell.input);
 		}
-		add_history(shell.input);
 		free(shell.input);
 		ft_lstclear(&shell.commands, &clean_command);
 	}
