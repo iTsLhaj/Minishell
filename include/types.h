@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:06:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/17 15:05:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:25:52 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,11 @@ typedef enum e_tok
 	NONE
 }	t_tok;
 
-/**
-@author @gogo
-@attention  this is the env struct you used in execution
-			the t_env_var is what i used for parsing
-@todo we need to fix this conflict !
-
-typedef struct s_env
-{
-	char	*key;
-	char	*val;
-}	t_env;
-*/
 typedef struct s_env_var
 {
 	char	*key;
 	char	*val;
 }	t_env_var;
-
-/**
- * @author @gogo
- * @attention idk what (t_tmp) is it for but i kept it !
- */
-// typedef struct s_tmp
-// {
-// 	char **cmd;
-// }	t_tmp;
 
 typedef struct s_token
 {
@@ -78,7 +57,7 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	char	*input;
-	t_list	*envlst;	// exec: t_list *env; | parse: t_list *envlst;
+	t_list	*envlst;
 	t_list	*lexerlst;
 	t_list	*commands;
 }	t_minishell;
@@ -96,8 +75,15 @@ typedef struct s_command
 	int			cmd_argc;
 	t_list		*redirections;
 	int			redirections_count;
-	int			input_fd;
-	int			output_fd;
-}		t_command;
+}	t_command;
+
+/** @attention idk WHAT THE FK THIS IS but he (@agaogou) used it in pipex ! */
+
+typedef struct s_tmp
+{
+	char	**cmd;
+}	t_tmp;
+
+typedef t_env_var	t_env;
 
 #endif

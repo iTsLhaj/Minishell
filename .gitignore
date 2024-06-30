@@ -4,8 +4,6 @@
 # Custom !
 cmake-build-debug/
 .idea/
-push_swap
-checker
 CMakeFiles/
 .vscode/
 

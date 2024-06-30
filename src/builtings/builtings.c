@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:59:06 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/15 07:07:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:04:10 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../include/minishell.h"
+#include "../include/minishell.h"
 
 void builting(char **str, t_minishell *shell)
 {
-    
+
     if(ft_strncmp(str[0],"pwd", 3) == 0)
         pwd(str);
     if(ft_strncmp(str[0] , "exit", 4) == 0)
@@ -29,6 +29,6 @@ void builting(char **str, t_minishell *shell)
         export(str,shell->envlst,0);
     if(ft_strncmp(str[0] , "unset", 5) == 0)
         unset(str, shell,0);
-    
+
 }
 

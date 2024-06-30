@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:59 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/29 11:22:52 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:26:58 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,51 +39,23 @@
  */
 /** ******************************************************* */
 
-typedef struct cmd
-{
-	char **cmd;
-	int infile;
-	int outfile;
-} t_cmd;
-
-typedef struct s_env
-{
-	char	*key;
-	char	*val;
-}	t_env;
-
-typedef struct s_tmp
-{
-	char **cmd;
-}	t_tmp;
-
-typedef struct s_red
-{
-	char *b_red;
-	char *a_red;
-}	t_red;
-
-
 void builting(char **str, t_minishell *shell);
 void miniexit(char **str);
 void cd(char **str,int i);
 void    pwd(char **str);
 void mini_env(t_list *env);
 void echo(char **str, int j);
-void  check_path(char *path,char **str, t_minishell *shell);
+void check_path(char *path,char **str, t_minishell *shell);
 t_list *env_list(char **env);
 void export(char **str,t_list *list, int i);
 
-/** @todo fix the conflict t_env by t_env_var */
 void split_env(t_env_var *env_node, char *str);
-int check_red(t_minishell *shell, t_command *command);
 
 void    unset(char **str,t_minishell *shell, int i);
 char *check_exist_path(t_list *tmp);
 char *check_valid_path(char **ptr, char **str);
-int        check_pipe(t_minishell *shell);
+int  check_pipe(t_minishell *shell);
 
-/** @todo fix the conflict c_cmd by t_command */
 void pipex(t_minishell *shell , t_command *command, t_command *nex_command);
 
 int check_builtin(char *str);
@@ -92,17 +64,20 @@ int red_out(t_minishell *shell , t_command *cmd);
 void run_builting(char **str,t_minishell *shell, int i);
 void check(t_minishell *shell , t_command *command);
 int red_in(t_minishell *shell , t_command *command);
+
+int  redirection(t_minishell *shell);
+int check_red(t_minishell *shell, t_command *command);
+char  *join_strings(char **cmd);
 int here_doc(t_minishell *shell , t_command *command);
 int append_red(t_minishell *shell , t_command *command);
+
 /** ******************************************************* */
 
-/**
- * @attention those are mine DONT TOUCH IT :3
- * @author @lh4j
- */
 /** @todo make a doctype for those functions ! */
+char	*purify_empty_quotes(char *line_read);
 void	unquote(t_list *lexerlist);
 void	extend(t_minishell *shell);
+void	clean_command(void *content);
 
 /**
  * @brief print's an error message and clear's the <lexer_list> !
@@ -312,4 +287,5 @@ int			handle_quotes(
 				);
 
 void		tokenize_input(t_minishell *shell);
+
 #endif
