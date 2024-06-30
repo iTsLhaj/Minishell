@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 23:13:54 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/03 05:11:25 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/30 18:58:19 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	handle_token(
 		append_node(NULL, token, lexer_list);
 		return (1);
 	}
+	return (-1);
 }
 
 int	handle_quotes(char *line_read, int i, char quote)

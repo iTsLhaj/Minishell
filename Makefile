@@ -19,7 +19,8 @@ SRCS	=	src/exec_main.c src/builtings/builtings.c src/builtings/exit.c src/builti
 			src/parser/parsing_quotes.c	\
 			src/errors/custom_errors.c	\
 			src/expander/expander.c	\
-			src/expander/unquote.c
+			src/expander/unquote.c	\
+			src/parser/clean_commands.c
 
 NAME	=	minishell
 OBJS	=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:51:52 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 16:52:15 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/30 18:58:39 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	export_redirections(t_parser *parser)
 		&& ((t_token *)(lexlst->content))->token <= HEREDOC)
 		redirection_new(parser, lexlst);
 	export_redirections(parser);
+	return (0);
 }
 
 static t_command	*fetch_command(t_parser *parsing_data)
