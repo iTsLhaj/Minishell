@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 18:48:15 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/30 19:21:01 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,21 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 			printf("syntax error: unclosed quote !\n");
-		if (shell.input[0] != '\0' && shell.commands->next == NULL)
+		if (shell.input[0] != '\0')
 		{
-			while(shell.commands != NULL)
+			if (shell.commands->next == NULL)
 			{
-				command = (t_command *)(shell.commands->content);
-				if(check_red(&shell, command) == 0)
-					check(&shell, command);
-				shell.commands = shell.commands->next;
+				while(shell.commands != NULL)
+				{
+					command = (t_command *)(shell.commands->content);
+					if(check_red(&shell, command) == 0)
+						check(&shell, command);
+					shell.commands = shell.commands->next;
+				}
 			}
+			else
+				check_pipe(&shell);
 		}
-		else
-			check_pipe(&shell);
-
 		add_history(shell.input);
 		free(shell.input);
 		ft_lstclear(&shell.commands, &clean_command);

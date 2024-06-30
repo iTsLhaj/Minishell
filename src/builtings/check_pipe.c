@@ -17,6 +17,7 @@ int check_pipe(t_minishell *shell)
 {
     t_command *command;
     t_command *nex_command;
+
     while(shell->commands->next)
     {
         command = (t_command *)(shell->commands->content);
