@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 18:14:59 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/30 18:35:33 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,45 @@ int check_builtin(char *str)
  */
 int	main(int argc, char **argv, char **envp)
 {
-	printf("Minishell dzzb!\n");
+	t_minishell	shell;
+	t_command	*command;
+	int			p;
+
+	(void)argc;
+	(void)argv;
+	signal(SIGINT, &ms_signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	init_shell(&shell, envp);
+	while (1)
+	{
+		ms_put_prompt();
+		shell.input = readline(" ");
+		if (shell.input == NULL)
+			break ;
+		shell.input = purify_empty_quotes(shell.input);
+		if (!check_quotes(shell.input))
+		{
+			tokenize_input(&shell);
+			unquote(shell.lexerlst);
+			extend(&shell);
+			if (shell.lexerlst)
+				parser(&shell);
+		}
+		else
+			printf("syntax error: unclosed quote !\n");
+		if (shell.input[0] != '\0')
+		{
+			command = (t_command *)(shell.commands->content);
+			p = check_red(&shell, command);
+			if (p != 0)
+				redirection(&shell);
+			else
+				check(&shell);
+			add_history(shell.input);
+		}
+		free(shell.input);
+		ft_lstclear(&shell.commands, &clean_command);
+	}
+	ft_lstclear(&shell.envlst, &clear_env);
+	ft_lstclear(&shell.lexerlst, &clean_content);
 }
