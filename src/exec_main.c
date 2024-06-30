@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/29 11:20:36 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:47:45 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int check_red(t_minishell *shell , t_command *command)
 
 void	init_shell(t_minishell *shell, char **envp)
 {
-    shell->envlst = ms_init_env(envp);
+    shell->envlst = env_list(envp);
     shell->lexerlst = NULL;
     shell->input = NULL;
     shell->commands = NULL;
@@ -119,7 +119,6 @@ int main(int ac , char **av, char **env)
     shell = malloc(sizeof(t_minishell));
     signal(SIGINT, signal_handler);
     signal(SIGQUIT, SIG_IGN);
-    shell->envlst = env_list(env);
     init_shell(shell, env);
     while(1)
     {
@@ -130,15 +129,14 @@ int main(int ac , char **av, char **env)
         if (!check_quotes(shell->input))
         {
             tokenize_input(shell);
-            unquote(shell->lexerlst);
-            /** @brief ... skip the extending part since mazal masalitha ! */
-            /// <extend here>
+            // unquote(shell->lexerlst);
+        	extend(shell);
             if (shell->lexerlst)
                 parser(shell);
         }
         else
             printf("syntax error: unclosed quote !\n");
-        if(shell->commands->next == NULL)
+        if(shell->input[0] != '\0' && shell->commands->next == NULL)
         {
             while(shell->commands != NULL)
             {
@@ -153,6 +151,7 @@ int main(int ac , char **av, char **env)
         
         add_history(shell->input);
         free(shell->input);
+    	ft_lstclear(shell->commands, &clean_command);
     }
     ft_lstclear(&shell->lexerlst, &clean_content);
     ft_lstclear(&shell->envlst, &clean_content);

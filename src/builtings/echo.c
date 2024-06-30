@@ -29,7 +29,7 @@ void echo(char **str , int j)
                 i++;
         }
         if(str[j + i] == NULL)
-            printf("");
+            printf(" ");
         else
             printf("%s",str[j + i]);
     }

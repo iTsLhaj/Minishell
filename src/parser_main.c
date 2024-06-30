@@ -6,7 +6,7 @@
 /*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/06/30 18:35:33 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/06/30 18:48:15 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ms_signal_handler(int sig)
 
 void	init_shell(t_minishell *shell, char **envp)
 {
-	shell->envlst = ms_init_env(envp);
+	shell->envlst = env_list(envp);
 	shell->lexerlst = NULL;
 	shell->input = NULL;
 	shell->commands = NULL;
@@ -67,27 +67,31 @@ int	main(int argc, char **argv, char **envp)
 		shell.input = readline(" ");
 		if (shell.input == NULL)
 			break ;
-		shell.input = purify_empty_quotes(shell.input);
+		// shell.input = purify_empty_quotes(shell.input);
 		if (!check_quotes(shell.input))
 		{
 			tokenize_input(&shell);
-			unquote(shell.lexerlst);
+			// unquote(shell.lexerlst);
 			extend(&shell);
 			if (shell.lexerlst)
 				parser(&shell);
 		}
 		else
 			printf("syntax error: unclosed quote !\n");
-		if (shell.input[0] != '\0')
+		if (shell.input[0] != '\0' && shell.commands->next == NULL)
 		{
-			command = (t_command *)(shell.commands->content);
-			p = check_red(&shell, command);
-			if (p != 0)
-				redirection(&shell);
-			else
-				check(&shell);
-			add_history(shell.input);
+			while(shell.commands != NULL)
+			{
+				command = (t_command *)(shell.commands->content);
+				if(check_red(&shell, command) == 0)
+					check(&shell, command);
+				shell.commands = shell.commands->next;
+			}
 		}
+		else
+			check_pipe(&shell);
+
+		add_history(shell.input);
 		free(shell.input);
 		ft_lstclear(&shell.commands, &clean_command);
 	}
