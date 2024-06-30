@@ -7,7 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:36:34 by agaougao          #+#    #+#             */
 /*   Updated: 2024/04/23 18:01:11 by agaougao         ###   ########.fr       */
-/*																			  */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
@@ -17,8 +17,7 @@ char	*ft_strdup(const char *s)
 {
 	char	*str;
 	size_t	i;
-	i = 0;
-	
+
 	str = (char *)malloc(sizeof(*s) * (ft_strlen(s) + 1));
 	if (!str)
 		return (NULL);

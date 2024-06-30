@@ -6,27 +6,23 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:00:43 by agaougao          #+#    #+#             */
-/*   Updated: 2024/04/23 18:08:12 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:54:59 by hmouhib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
-
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h> 
 # include <stdint.h>
-#include <stddef.h>
-
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 
 // libc functions :)
