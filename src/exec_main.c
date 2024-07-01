@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:05:51 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/30 19:21:38 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:02:31 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,17 @@ int main(int ac , char **av, char **env)
             printf("syntax error: unclosed quote !\n");
         if (shell->input[0] != '\0')
         {
-	        if (shell->commands->next == NULL)
-	        {
-	            while(shell->commands != NULL)
-	            {
-	                command = (t_command *)(shell->commands->content);
-	                if(check_red(shell, command) == 0)
-	                    check(shell, command);
-	                shell->commands = shell->commands->next;
-	            }
-	        }
-	        else
+	        // if (shell->commands->next == NULL)
+	        // {
+	        //     while(shell->commands != NULL)
+	        //     {
+	        //         command = (t_command *)(shell->commands->content);
+	        //         if(check_red(shell, command) == 0)
+	        //             check(shell, command);
+	        //         shell->commands = shell->commands->next;
+	        //     }
+	        // }
+	        // else
 	            check_pipe(shell);
 		}
         add_history(shell->input);

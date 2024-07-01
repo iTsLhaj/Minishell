@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmouhib <hmouhib@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:31:19 by hmouhib           #+#    #+#             */
-/*   Updated: 2024/07/01 01:01:33 by hmouhib          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:20:50 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,17 @@ int	main(int argc, char **argv, char **envp)
 			printf("syntax error: unclosed quote !\n");
 		if (shell.input[0] != '\0')
 		{
-			if (shell.commands->next == NULL)
-			{
-				while(shell.commands != NULL)
-				{
-					command = (t_command *)(shell.commands->content);
-					if(check_red(&shell, command) == 0)
-						check(&shell, command);
-					shell.commands = shell.commands->next;
-				}
-			}
-			else
+		// 	if (shell.commands->next == NULL)
+		// 	{
+		// 		while(shell.commands != NULL)
+		// 		{
+		// 			command = (t_command *)(shell.commands->content);
+		// 			if(check_red(&shell, command) == 0)
+		// 				check(&shell, command);
+		// 			shell.commands = shell.commands->next;
+		// 		}
+		// 	}
+		// 	else
 				check_pipe(&shell);
 			add_history(shell.input);
 		}

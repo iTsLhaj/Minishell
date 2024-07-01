@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:07:31 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/29 11:23:42 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:33:25 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int red_out(t_minishell *shell , t_command *cmd)
     file_name =  ((t_token *)cmd->redirections->content)->word;
     command = cmd->cmd_argv;
     file = open(file_name , O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    pid = fork();
-    if(pid == 0)
-    {
+    // pid = fork();
+    // if(pid == 0)
+    // {
         if(file != -1)
         {
             if(check_builtin(command[0]))
@@ -46,8 +46,8 @@ int red_out(t_minishell *shell , t_command *cmd)
             }
         }
         dup2(out, 1);
-        exit(0);
-    }
-    waitpid(pid, NULL,0);
+    //     exit(0);
+    // }
+    // waitpid(pid, NULL,0);
     return 1;    
 }

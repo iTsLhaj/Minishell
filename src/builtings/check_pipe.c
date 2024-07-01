@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:23:17 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/29 13:14:32 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:28:49 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,29 @@ int check_pipe(t_minishell *shell)
 {
     t_command *command;
     t_command *nex_command;
+    t_list *tmp;
+    int out = dup(1);
+    int in = dup(0);
 
-    while(shell->commands->next)
+    tmp = shell->commands;
+    while(shell->commands)
     {
         command = (t_command *)(shell->commands->content);
-        nex_command = (t_command *)(shell->commands->next->content);
-        pipex(shell, command , nex_command);
+        if(shell->commands->next)
+        {
+            nex_command = (t_command *)(shell->commands->next->content);
+            pipex(shell, command , nex_command);
+        }
+        else
+            pipex(shell, command ,NULL);
+        shell->commands = shell->commands->next;
+    }
+    shell->commands = tmp;
+    dup2(in, 0);
+    dup2(out, 1);
+    while (shell->commands)
+    {
+        waitpid(-1, NULL, 0);
         shell->commands = shell->commands->next;
     }
     return (0);

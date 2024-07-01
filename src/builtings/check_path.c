@@ -74,9 +74,9 @@ void check_path(char *path,char **str, t_minishell *shell)
     env = turn_env_tab(shell);
     if(access(path, X_OK) == 0)
     {
-        pid = fork();
-        if(pid == 0)
+        // pid = fork();
+        // if(pid == 0)
             execve(path, str ,env);
-        waitpid(pid, NULL, 0);
+        // waitpid(pid, NULL, 0);
     }
 }

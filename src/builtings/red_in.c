@@ -6,7 +6,7 @@
 /*   By: agaougao <agaougao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:47:34 by agaougao          #+#    #+#             */
-/*   Updated: 2024/06/29 11:20:59 by agaougao         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:36:38 by agaougao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int red_in(t_minishell *shell, t_command *command)
     else
     {
         file = open(file_name, O_RDONLY);
-        pid = fork();
-        if(pid == 0)
-        {       
+        // pid = fork();
+        // if(pid == 0)
+        // {       
             if(file != -1)
             {
                 if(check_builtin(cmd[0]))
@@ -45,12 +45,12 @@ int red_in(t_minishell *shell, t_command *command)
                     dup2(file ,0);
                     close(file);
                     check(shell,command);
-                }    
+                } 
             }
             dup2(in ,0);
-            exit(0);
-        }
-        waitpid(pid ,NULL, 0);
+        //     exit(0);
+        // }
+        // waitpid(pid ,NULL, 0);
     }
     return(1);
 }
